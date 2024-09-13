@@ -13,4 +13,5 @@ public class Usuario {
     @NotNull
     private String matricula;
     private String senha;
+    private TIPO_USUARIO tipoUsuario;
 }
