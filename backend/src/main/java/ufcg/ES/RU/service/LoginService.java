@@ -1,6 +1,7 @@
 package ufcg.ES.RU.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ufcg.ES.RU.Model.Usuario;
 import ufcg.ES.RU.Repository.UsuarioRepository;
@@ -22,9 +23,7 @@ public class LoginService {
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> getUsuarioByMatricula(String matricula) {
-        return usuarioRepository.findById(matricula);
-    }
+
 
     public Usuario updateUsuario(String matricula, Usuario usuarioAtualizado) {
         Optional<Usuario> usuarioExistente = usuarioRepository.findById(matricula);
