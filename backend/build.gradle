@@ -36,7 +36,7 @@ dependencies {
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
 	implementation 'org.hibernate:hibernate-core:6.0.0.Final'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
-    //implementation 'org.hibernate:hibernate-entitymanager:6.0.0.Final'
+
 }
 
 tasks.named('test') {
