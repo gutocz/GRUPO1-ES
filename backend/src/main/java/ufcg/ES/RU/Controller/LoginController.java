@@ -1,14 +1,12 @@
 package ufcg.ES.RU.Controller;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ufcg.ES.RU.Model.DTO.LoginDTO;
-import ufcg.ES.RU.Model.Usuario;
 import ufcg.ES.RU.Repository.UsuarioRepository;
 import ufcg.ES.RU.service.LoginService;
 
@@ -30,11 +28,18 @@ public class LoginController {
 //        return  ResponseEntity.ok().build();
 //    }
 
-    @PostMapping("/")
-    public ResponseEntity login(@RequestBody @Valid LoginDTO login) {
+    @PostMapping("/usuario")
+    public ResponseEntity loginUsuario(@RequestBody @Valid LoginDTO login) {
         String encryptedPassword = new BCryptPasswordEncoder().encode(login.senha());
         var usu = usuarioRepository.findByMatriculaAndSenha(login.matricula(),encryptedPassword);
-        return  ResponseEntity.ok(usu);
+        return  ResponseEntity.status(HttpStatus.FOUND).body(usu);
+    }
+
+    @PostMapping("/funcionario")
+    public ResponseEntity loginFuncinario(@RequestBody @Valid LoginDTO login) {
+        String encryptedPassword = new BCryptPasswordEncoder().encode(login.senha());
+        var usu = usuarioRepository.findByMatriculaAndSenha(login.matricula(),encryptedPassword);
+        return  ResponseEntity.status(HttpStatus.FOUND).body(usu);
     }
 }
 

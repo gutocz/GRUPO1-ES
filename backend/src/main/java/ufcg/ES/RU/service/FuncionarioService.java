@@ -6,10 +6,9 @@ import ufcg.ES.RU.Model.Aluno;
 import ufcg.ES.RU.Repository.UsuarioRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class LoginService {
+public class FuncionarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -22,16 +21,15 @@ public class LoginService {
         return usuarioRepository.findAll();
     }
 
-
+    public Aluno getUsuarioByMatricula(String matricula) {
+        return usuarioRepository.findAlunoByMatricula(matricula);
+    }
 
     public Aluno updateUsuario(String matricula, Aluno usuarioAtualizado) {
-        Optional<Aluno> usuarioExistente = usuarioRepository.findById(matricula);
+        Aluno usuarioExistente = usuarioRepository.findAlunoByMatricula(matricula);
 
-        if (usuarioExistente.isPresent()) {
-            Aluno usuario = usuarioExistente.get();
-            usuario.setNome(usuarioAtualizado.getNome());
-            usuario.setSenha(usuarioAtualizado.getSenha());
-            return usuarioRepository.save(usuario);
+        if (usuarioExistente != null) {
+            return  usuarioRepository.save(usuarioAtualizado);
         } else {
             return null;
         }
@@ -39,5 +37,10 @@ public class LoginService {
 
     public void deleteUsuario(String matricula) {
         usuarioRepository.deleteById(matricula);
+    }
+
+    public Aluno validaEmail( String email) {
+        if (email == null || email.isEmpty()) new Throwable("Email invalido");
+        return usuarioRepository.findAlunoByEmail(email);
     }
 }
