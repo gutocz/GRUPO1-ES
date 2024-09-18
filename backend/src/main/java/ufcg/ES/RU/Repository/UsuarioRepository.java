@@ -9,6 +9,12 @@ import ufcg.ES.RU.Model.Aluno;
 public interface UsuarioRepository extends JpaRepository<Aluno, String> {
 
     Aluno findByMatriculaAndSenha(String matricula, String senha);
+
     Aluno findAlunoByEmail(String email);
+
     Aluno findAlunoByMatricula(String matricula);
 }
+
+
+
+

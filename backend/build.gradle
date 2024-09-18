@@ -42,6 +42,13 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.3.3'
 	testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '6.3.3'
 	implementation 'com.auth0:java-jwt:4.4.0'
+    //implementation 'org.hibernate:hibernate-entitymanager:6.0.0.Final'
+	implementation 'org.springframework.security:spring-security-crypto:6.0.0'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	implementation 'org.modelmapper:modelmapper:2.4.5'
+
+
 }
 
 tasks.named('test') {
