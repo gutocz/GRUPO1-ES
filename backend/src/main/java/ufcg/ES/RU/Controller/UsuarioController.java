@@ -1,8 +1,10 @@
 package ufcg.ES.RU.Controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ufcg.ES.RU.Model.Usuario;
 import ufcg.ES.RU.service.UsuarioService;
@@ -19,7 +21,9 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<Usuario> createOrUpdateUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> createOrUpdateUsuario(@RequestBody @Valid Usuario usuario) {
+        String encryptedPassword = new BCryptPasswordEncoder().encode(usuario.getPassword());
+        usuario.setSenha(encryptedPassword);
         Usuario savedUsuario = usuarioService.saveUsuario(usuario);
         return ResponseEntity.ok(savedUsuario);
     }
