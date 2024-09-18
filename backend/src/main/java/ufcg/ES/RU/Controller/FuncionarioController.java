@@ -9,32 +9,34 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ufcg.ES.RU.Model.Aluno;
 import ufcg.ES.RU.Model.DTO.SenhaDTO;
+import ufcg.ES.RU.Model.Funcionario;
 import ufcg.ES.RU.service.AlunoService;
+import ufcg.ES.RU.service.FuncionarioService;
 
 import java.util.List;
 
-@Tag(name = "Usuário")
+@Tag(name = "Funcinário")
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/Funcionario")
 public class FuncionarioController {
 
     @Autowired
-    private AlunoService alunoService;
+    private FuncionarioService funcionarioService;
 
     @PostMapping("/create")
-    public ResponseEntity createAluno(@RequestBody @Valid Aluno aluno) {
-        if (aluno == null) {
+    public ResponseEntity createFuncionario(@RequestBody @Valid Funcionario funcionario) {
+        if (funcionario == null) {
             throw new IllegalArgumentException("Dados inválidos!");
         }
 
-        if (aluno.getSenha() == null || aluno.getSenha().isEmpty()) {
+            if (funcionario.getSenha() == null || funcionario.getSenha().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Senha não pode ser nula ou vazia");
         }
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(aluno.getSenha());
-        aluno.setSenha(encryptedPassword);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(funcionario.getSenha());
+        funcionario.setSenha(encryptedPassword);
 
-        Aluno savedUsuario = alunoService.saveUsuario(aluno);
+        Funcionario savedUsuario = funcionarioService.saveUsuario(funcionario);
         if (savedUsuario != null ){
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUsuario);
         }else {
@@ -44,7 +46,7 @@ public class FuncionarioController {
 
     @GetMapping("/getAll")
     public ResponseEntity getAllAluno() {
-        List<Aluno> usuarios = alunoService.getAllUsuarios();
+        List<Funcionario> usuarios = funcionarioService.getAllUsuarios();
         if (usuarios.size() != 0){
             return ResponseEntity.status(HttpStatus.CREATED).body(usuarios);
         }else {
@@ -52,72 +54,72 @@ public class FuncionarioController {
         }
     }
 
-    @GetMapping("/Aluno/{matricula}")
-    public ResponseEntity getAlunoByMatricula(@PathVariable String matricula) {
-        if (matricula == null) throw  new IllegalArgumentException("matricula não informada");
-        Aluno aluno = alunoService.getUsuarioByMatricula(matricula);
-        if (aluno != null){
-            return ResponseEntity.status(HttpStatus.CREATED).body(aluno);
+    @GetMapping("/{cpf}")
+    public ResponseEntity getAlunoByMatricula(@PathVariable String cpf) {
+        if (cpf == null) throw  new IllegalArgumentException("cpf não informado");
+        Funcionario funcionario = funcionarioService.getUsuarioByCPF(cpf);
+        if (funcionario != null){
+            return ResponseEntity.status(HttpStatus.CREATED).body(funcionario);
         }else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sem alunos cadastrados");
         }
     }
 
-    @PutMapping("/atualizaAluno/{matricula}")
-    public ResponseEntity updateAluno(@PathVariable String matricula, @RequestBody Aluno usuario) {
-        Aluno aluno = alunoService.getUsuarioByMatricula(matricula);
+    @PutMapping("/atualizaFuncionario/{matricula}")
+    public ResponseEntity updateAluno(@PathVariable String cpf, @RequestBody Funcionario funcionario) {
+        Funcionario funcionarioAux = funcionarioService.getUsuarioByCPF(cpf);
 
-        if (aluno.getSenha() == null || aluno.getSenha().isEmpty()) {
+        if (funcionario.getSenha() == null || funcionario.getSenha().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Senha não pode ser nula ou vazia");
         }
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(aluno.getSenha());
-        aluno.setSenha(encryptedPassword);
-        Aluno updatedUsuario = alunoService.updateUsuario(matricula, usuario);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(funcionario.getSenha());
+        funcionarioAux.setSenha(encryptedPassword);
+        Funcionario updatedUsuario = funcionarioService.updateUsuario(cpf, funcionario);
         if (updatedUsuario != null) {
             return ResponseEntity.status(HttpStatus.OK).body(updatedUsuario);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não identificado!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcion não identificado!");
         }
     }
 
-    @PutMapping("/validaemail/{email}")
-    public ResponseEntity validaEmail(@PathVariable String email) {
-        Aluno aluno = alunoService.validaEmail(email);
-        if (aluno != null) {
-            return ResponseEntity.status(HttpStatus.FOUND).body(aluno);
+    @PutMapping("/validaCPF/{cpf}")
+    public ResponseEntity validaEmail(@PathVariable String cpf) {
+        Funcionario funcionario = funcionarioService.getUsuarioByCPF(cpf);
+        if (funcionario != null) {
+            return ResponseEntity.status(HttpStatus.FOUND).body(funcionario);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("email não identificado!");
         }
     }
 
-    @DeleteMapping("deleteAluno/{matricula}")
-    public ResponseEntity deleteUsuario(@PathVariable String matricula) {
-        Aluno aluno = alunoService.getUsuarioByMatricula(matricula);
-        if (aluno == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
+    @DeleteMapping("deleteFuncionario/{cpf}")
+    public ResponseEntity deleteUsuario(@PathVariable String cpf) {
+        Funcionario funcionario = funcionarioService.getUsuarioByCPF(cpf);
+        if (funcionario == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não encontrado");
         }
-        alunoService.deleteUsuario(matricula);
+        funcionarioService.deleteUsuario(cpf);
         return ResponseEntity.status(HttpStatus.OK).body("Usuário Removido");
     }
 
     @PutMapping("/atualizaSenha/")
     public ResponseEntity updateAluno( @RequestBody SenhaDTO senha) {
 
-        Aluno aluno = alunoService.getUsuarioByMatricula(senha.matricula());
-        if (aluno == null){
+        Funcionario funcionario = funcionarioService.getUsuarioByCPF(senha.matricula());
+        if (funcionario == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
         }
-        if (aluno.getSenha() == null || aluno.getSenha().isEmpty()) {
+        if (funcionario.getSenha() == null || funcionario.getSenha().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Senha não pode ser nula ou vazia");
         }
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(aluno.getSenha());
-        aluno.setSenha(encryptedPassword);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(senha.novaSenha());
+        funcionario.setSenha(encryptedPassword);
 
-        Aluno updatedUsuario = alunoService.updateUsuario(senha.matricula(), aluno);
-        if (updatedUsuario != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(updatedUsuario);
+        Funcionario funcionario1 = funcionarioService.updateUsuario(senha.matricula(), funcionario);
+        if (funcionario1 != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(funcionario1);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não identificado!");
         }

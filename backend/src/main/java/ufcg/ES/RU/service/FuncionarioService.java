@@ -2,7 +2,8 @@ package ufcg.ES.RU.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ufcg.ES.RU.Model.Aluno;
+import ufcg.ES.RU.Model.Funcionario;
+import ufcg.ES.RU.Repository.FuncionarioRepository;
 import ufcg.ES.RU.Repository.UsuarioRepository;
 
 import java.util.List;
@@ -11,36 +12,35 @@ import java.util.List;
 public class FuncionarioService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private FuncionarioRepository funcionarioRepository;
 
-    public Aluno saveUsuario(Aluno usuario) {
-        return usuarioRepository.save(usuario);
+    public Funcionario saveUsuario(Funcionario usuario) {
+        return funcionarioRepository.save(usuario);
     }
 
-    public List<Aluno> getAllUsuarios() {
-        return usuarioRepository.findAll();
+    public List<Funcionario> getAllUsuarios() {
+        return funcionarioRepository.findAll();
     }
 
-    public Aluno getUsuarioByMatricula(String matricula) {
-        return usuarioRepository.findAlunoByMatricula(matricula);
+    public Funcionario getUsuarioByCPF(String cpf) {
+        return funcionarioRepository.findFuncionarioByCPF(cpf);
     }
 
-    public Aluno updateUsuario(String matricula, Aluno usuarioAtualizado) {
-        Aluno usuarioExistente = usuarioRepository.findAlunoByMatricula(matricula);
+    public Funcionario updateUsuario(String cpf, Funcionario usuarioAtualizado) {
+        Funcionario usuarioExistente = funcionarioRepository.findFuncionarioByCPF(cpf);
 
         if (usuarioExistente != null) {
-            return  usuarioRepository.save(usuarioAtualizado);
+            return  funcionarioRepository.save(usuarioAtualizado);
         } else {
             return null;
         }
     }
 
-    public void deleteUsuario(String matricula) {
-        usuarioRepository.deleteById(matricula);
-    }
+    public void deleteUsuario(String cpf) {
+        Funcionario funcionario = funcionarioRepository.findFuncionarioByCPF(cpf);
+        if (funcionario != null){
+            funcionarioRepository.deleteById(funcionario.getCPF());
+        }
 
-    public Aluno validaEmail( String email) {
-        if (email == null || email.isEmpty()) new Throwable("Email invalido");
-        return usuarioRepository.findAlunoByEmail(email);
     }
-}
+    }
