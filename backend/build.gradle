@@ -23,9 +23,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -36,6 +34,21 @@ dependencies {
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
 	implementation 'org.hibernate:hibernate-core:6.0.0.Final'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'org.springframework.security:spring-security-crypto'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.3.3'
+	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '3.3.3'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.3.3'
+	testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '6.3.3'
+	implementation 'com.auth0:java-jwt:4.4.0'
+    //implementation 'org.hibernate:hibernate-entitymanager:6.0.0.Final'
+	implementation 'org.springframework.security:spring-security-crypto:6.0.0'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	implementation 'org.modelmapper:modelmapper:2.4.5'
+
+
 
 }
 
@@ -46,4 +59,7 @@ tasks.named('test') {
 tasks.withType(JavaCompile) {
     options.compilerArgs << "-parameters"
 }
+
+
+
 
