@@ -11,10 +11,10 @@ export const handler: Handlers = {
 
 const INPUTS = [
     {
-        label: "Matrícula",
-        placeholder: "123456788",
+        label: "Nome",
+        placeholder: "João victor",
         type: "text",
-        id: "matricula-input",
+        id: "nome-input",
     },
     {
         label: "Senha",
@@ -22,18 +22,42 @@ const INPUTS = [
         type: "password",
         id: "senha-input",
     },
+    {
+        label: "Telefone",
+        placeholder: "(83) 99999-9999",
+        type: "text",
+        id: "telefone-input",
+    },
+    {
+        label: "Email",
+        placeholder: "exemplo@exem.com",
+        type: "email",
+        id: "email-input",
+    },
+    {
+        label: "Matrícula",
+        placeholder: "123456788",
+        type: "text",
+        id: "matricula-input",
+    },
+    {
+        label: "Curso",
+        placeholder: "Ciências da Computação",
+        type: "text",
+        id: "curso-input",
+    },
 ];
 
-export default function Login() {
+export default function Cadastro() {
     return (
         <div class="bg-[#FAF6F1] min-h-screen ">
             <Navbar />
             <div class="bg-white rounded-3xl mx-auto mt-12 min-h-[694px] max-w-[1178px] w-full py-16 px-20">
                 <form
                     method="POST"
-                    class="w-full max-w-[300px] mx-auto"
+                    class="w-full max-w-[600px] mx-auto"
                 >
-                    <div class="w-full grid grid-cols-1 gap-x-6">
+                    <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-6">
                         {INPUTS.map((input) => <Input {...input} />)}
                     </div>
                     <div class="flex flex-row w-full justify-center gap-x-3 mx-auto pt-6">
@@ -44,7 +68,7 @@ export default function Login() {
                             primary
                             aria-label="Criar conta"
                         >
-                            Entrar
+                            Criar conta
                         </Button>
                         <Button
                             style={{
@@ -59,8 +83,6 @@ export default function Login() {
                         </Button>
                     </div>
                 </form>
-
-                <a class="text-ru-orange-500 underline flex justify-center pt-10">Esqueci minha senha</a>
             </div>
         </div>
     );
