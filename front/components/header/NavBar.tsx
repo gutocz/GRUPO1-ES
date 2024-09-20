@@ -1,9 +1,12 @@
-import { Button } from "../Button.tsx";
+import { Button } from "../ui/Button.tsx";
 
 export default function Navbar() {
     return (
         <>
-            <nav class="bg-white h-20 sm:h-28 sm:px-24 items-center flex w-full">
+            <nav
+                style={{ borderColor: "#e2e2e2" }}
+                class="bg-white h-20 sm:h-28 sm:px-24 items-center flex w-full border border-b"
+            >
                 <div class="hidden sm:flex w-full h-16 items-center justify-between">
                     <div class="flex flex-1 items-center justify-center sm:justify-start">
                         <div class="flex flex-shrink-0 items-center">
@@ -31,17 +34,7 @@ export default function Navbar() {
                         </div>
                     </div>
                     <div class="flex flex-row gap-x-6">
-                        <Button
-                            style={{
-                                borderWidth: "1px",
-                                borderColor: "#D4D2E3",
-                            }}
-                            secondary
-                            aria-label="Login"
-                            href="/login"
-                        >
-                            Login
-                        </Button>
+                         
                         <Button
                             primary
                             aria-label="Cadastro"

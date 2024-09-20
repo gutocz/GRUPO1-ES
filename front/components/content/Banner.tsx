@@ -1,4 +1,4 @@
-import { Button } from "../Button.tsx";
+import { Button } from "../ui/Button.tsx";
 
 export default function Banner() {
     return (

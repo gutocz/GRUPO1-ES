@@ -20,8 +20,8 @@ export function Button({
   ...props
 }: Props & Attributes) {
   const className = primary
-    ? "bg-ru-orange-500 rounded-full cursor-pointer leading-[18px] font-bold text-lg px-6 py-[18px] items-center"
-    : "text-ru-orange-500 rounded-full leading-[18px] cursor-pointer font-medium text-sm px-6 py-[18px] text-center";
+    ? "bg-ru-orange-500 rounded-full cursor-pointer leading-[18px] font-bold text-lg px-6 py-[18px] items-center hover:bg-[#f17011]"
+    : "text-ru-orange-500 rounded-full leading-[18px] cursor-pointer font-medium text-sm px-6 py-[18px] text-center hover:bg-[#e2e2e2]";
 
   if (isAnchorProps(props)) {
     return (
