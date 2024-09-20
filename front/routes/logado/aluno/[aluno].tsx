@@ -1,5 +1,5 @@
-import Navbar from "../../components/header/NavBar.tsx";
-import Modal, { open } from "../../islands/Modal.tsx";
+import Navbar from "../../../components/header/NavBar.tsx";
+import Modal, { open } from "../../../islands/Modal.tsx";
 
 export default function AlunoLogado() {
     const days = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
@@ -50,13 +50,6 @@ export default function AlunoLogado() {
                     </div>
                     <div class="space-x-4">
                         <Modal />
-                        <button
-                            
-                            class="btn btn-sm  "
-                            type="button"
-                        >
-                            Refeição no local
-                        </button>
                         <button
                             onClick={() => open.value = !open.value}
                             class="bg-ru-orange-500 text-black border px-14 py-2 rounded-md text-sm font-medium"

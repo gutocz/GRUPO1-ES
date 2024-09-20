@@ -8,7 +8,11 @@ import * as $api_joke from "./routes/api/joke.ts";
 import * as $cadastro from "./routes/cadastro.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
-import * as $logado_aluno_ from "./routes/logado/[aluno].tsx";
+import * as $logado_aluno_aluno_ from "./routes/logado/aluno/[aluno].tsx";
+import * as $logado_aluno_perfil from "./routes/logado/aluno/perfil.tsx";
+import * as $logado_funcionario_funcionario_ from "./routes/logado/funcionario/[funcionario].tsx";
+import * as $logado_funcionario_editar from "./routes/logado/funcionario/editar.tsx";
+import * as $logado_funcionario_perfil from "./routes/logado/funcionario/perfil.tsx";
 import * as $loginAluno from "./routes/loginAluno.tsx";
 import * as $loginFuncionario from "./routes/loginFuncionario.tsx";
 import * as $AlunoLogado from "./islands/AlunoLogado.tsx";
@@ -23,7 +27,12 @@ const manifest = {
     "./routes/cadastro.tsx": $cadastro,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
-    "./routes/logado/[aluno].tsx": $logado_aluno_,
+    "./routes/logado/aluno/[aluno].tsx": $logado_aluno_aluno_,
+    "./routes/logado/aluno/perfil.tsx": $logado_aluno_perfil,
+    "./routes/logado/funcionario/[funcionario].tsx":
+      $logado_funcionario_funcionario_,
+    "./routes/logado/funcionario/editar.tsx": $logado_funcionario_editar,
+    "./routes/logado/funcionario/perfil.tsx": $logado_funcionario_perfil,
     "./routes/loginAluno.tsx": $loginAluno,
     "./routes/loginFuncionario.tsx": $loginFuncionario,
   },
