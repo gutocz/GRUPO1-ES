@@ -1,5 +1,3 @@
-import Modal from "../../../islands/Modal.tsx";
-import { open } from "../../../islands/Modal.tsx";
 import { days, mealTypes } from "../../../../constants.ts";
 import Navbar from "../../../components/header/NavBar.tsx";
 

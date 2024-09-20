@@ -1,11 +1,8 @@
 import Navbar from "../../../components/header/NavBar.tsx";
-import Modal, { open } from "../../../islands/Modal.tsx";
+import Modal, { openModalPagar } from "../../../islands/Modal.tsx";
+import { days, mealTypes } from "../../../../constants.ts";
 
 export default function AlunoLogado() {
-    const days = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-    const mealTypes = ["Almoço", "Janta"];
-    console.log(open.value);
-
     return (
         <div class="bg-[#FAF6F1] min-h-screen">
             <Navbar />
@@ -51,7 +48,8 @@ export default function AlunoLogado() {
                     <div class="space-x-4">
                         <Modal />
                         <button
-                            onClick={() => open.value = !open.value}
+                            onClick={() =>
+                                openModalPagar.value = !openModalPagar.value}
                             class="bg-ru-orange-500 text-black border px-14 py-2 rounded-md text-sm font-medium"
                         >
                             Refeição no local

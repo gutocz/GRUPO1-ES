@@ -1,11 +1,11 @@
 import { signal } from "@preact/signals";
 import { Button } from "../components/ui/Button.tsx";
 
-export const open = signal(false);
+export const openModalPagar = signal(false);
 
 export default function Modal() {
     return (
-        <dialog open={open.value} id="my_modal_1" class="modal bg-[#C9AA97]">
+        <dialog open={openModalPagar.value} id="my_modal_1" class="modal bg-[#C9AA97]">
             <div class="modal-box bg-white rounded-lg text-black text-center px-16 py-16">
                 <h3 class="text-lg font-bold">
                     Você decidiu realizar a refeição no local!

@@ -10,13 +10,16 @@ import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $logado_aluno_aluno_ from "./routes/logado/aluno/[aluno].tsx";
 import * as $logado_aluno_perfil from "./routes/logado/aluno/perfil.tsx";
+import * as $logado_aluno_recarga from "./routes/logado/aluno/recarga.tsx";
 import * as $logado_funcionario_funcionario_ from "./routes/logado/funcionario/[funcionario].tsx";
 import * as $logado_funcionario_editar from "./routes/logado/funcionario/editar.tsx";
 import * as $logado_funcionario_perfil from "./routes/logado/funcionario/perfil.tsx";
 import * as $loginAluno from "./routes/loginAluno.tsx";
 import * as $loginFuncionario from "./routes/loginFuncionario.tsx";
 import * as $AlunoLogado from "./islands/AlunoLogado.tsx";
+import * as $FuncionarioLogado from "./islands/FuncionarioLogado.tsx";
 import * as $Modal from "./islands/Modal.tsx";
+import * as $ModalAddPrato from "./islands/ModalAddPrato.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -29,6 +32,7 @@ const manifest = {
     "./routes/index.tsx": $index,
     "./routes/logado/aluno/[aluno].tsx": $logado_aluno_aluno_,
     "./routes/logado/aluno/perfil.tsx": $logado_aluno_perfil,
+    "./routes/logado/aluno/recarga.tsx": $logado_aluno_recarga,
     "./routes/logado/funcionario/[funcionario].tsx":
       $logado_funcionario_funcionario_,
     "./routes/logado/funcionario/editar.tsx": $logado_funcionario_editar,
@@ -38,7 +42,9 @@ const manifest = {
   },
   islands: {
     "./islands/AlunoLogado.tsx": $AlunoLogado,
+    "./islands/FuncionarioLogado.tsx": $FuncionarioLogado,
     "./islands/Modal.tsx": $Modal,
+    "./islands/ModalAddPrato.tsx": $ModalAddPrato,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
