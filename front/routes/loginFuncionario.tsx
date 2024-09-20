@@ -12,10 +12,10 @@ export const handler: Handlers = {
 
 const INPUTS = [
     {
-        label: "Matrícula",
-        placeholder: "123456788",
+        label: "CPF",
+        placeholder: "1123456789",
         type: "text",
-        id: "matricula-input",
+        id: "cpf-input",
     },
     {
         label: "Senha",

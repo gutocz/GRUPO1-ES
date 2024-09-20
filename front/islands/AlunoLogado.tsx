@@ -1,0 +1,1 @@
+export {default} from  "../routes/logado/[aluno].tsx"
