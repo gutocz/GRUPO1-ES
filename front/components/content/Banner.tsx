@@ -59,7 +59,7 @@ export default function Banner() {
                             }}
                             secondary
                             aria-label="Login"
-                            href="/login"
+                            href="/loginAluno"
                         >
                             Login
                         </Button>

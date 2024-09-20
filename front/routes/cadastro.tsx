@@ -2,6 +2,7 @@ import Navbar from "../components/header/NavBar.tsx";
 import { FreshContext, Handlers } from "$fresh/server.ts";
 import Input from "../components/ui/Input.tsx";
 import { Button } from "../components/ui/Button.tsx";
+import Container from "../components/content/Container.tsx";
 
 export const handler: Handlers = {
     GET(_req: Request, _ctx: FreshContext) {
@@ -52,7 +53,7 @@ export default function Cadastro() {
     return (
         <div class="bg-[#FAF6F1] min-h-screen ">
             <Navbar />
-            <div class="bg-white rounded-3xl mx-auto mt-12 min-h-[694px] max-w-[1178px] w-full py-16 px-20">
+            <Container>
                 <form
                     method="POST"
                     class="w-full max-w-[600px] mx-auto"
@@ -83,7 +84,7 @@ export default function Cadastro() {
                         </Button>
                     </div>
                 </form>
-            </div>
+            </Container>
         </div>
     );
 }

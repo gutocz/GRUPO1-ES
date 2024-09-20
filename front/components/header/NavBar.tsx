@@ -34,7 +34,17 @@ export default function Navbar() {
                         </div>
                     </div>
                     <div class="flex flex-row gap-x-6">
-                         
+                        <Button
+                            style={{
+                                borderWidth: "1px",
+                                borderColor: "#D4D2E3",
+                            }}
+                            secondary
+                            aria-label="Login"
+                            href="/loginAluno"
+                        >
+                            Login
+                        </Button>
                         <Button
                             primary
                             aria-label="Cadastro"
