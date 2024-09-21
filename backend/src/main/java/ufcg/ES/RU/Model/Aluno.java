@@ -28,6 +28,8 @@ public class Aluno {
     @NotNull
     private String senha;
 
+    @NotNull
+    private double saldo;
 
     private String telefone;
 

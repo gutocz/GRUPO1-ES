@@ -123,5 +123,13 @@ public class AlunoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não identificado!");
         }
     }
+
+    // Incrementar saldo do aluno (recarga)
+    @PutMapping("/recarga/{matricula}")
+    public ResponseEntity<Aluno> recarregarSaldo(@PathVariable String matricula, @RequestParam double valor) {
+        Aluno aluno = alunoService.incrementarSaldo(matricula, valor);
+        return ResponseEntity.ok(aluno);
+    }
+
 }
 
