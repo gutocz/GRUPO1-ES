@@ -26,7 +26,7 @@ public class PagamentoService {
                 .valor(valor)
                 .build();
 
-        pedido.setPago(true);
+        pedido.setEntregue(true);
         pedidoRepository.save(pedido);
 
         return pagamentoRepository.save(pagamento);

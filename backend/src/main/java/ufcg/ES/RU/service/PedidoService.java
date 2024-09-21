@@ -28,8 +28,9 @@
     
         // Cria um novo pedido para marmita
         public Pedido criarPedido(String matricula, String tipo) {
-            Aluno aluno = usuarioRepository.findById(matricula)
-                    .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+            var e = usuarioRepository.findById(matricula);
+            Aluno aluno = usuarioRepository.findAlunoByMatricula(matricula);
+//                    .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
     
             double valorMarmita = (tipo.equals("Vegana")) ? 10.0 : 8.0; // Exemplo de preços
     
@@ -105,8 +106,8 @@
         }
     
         // Método para buscar tokens de pedidos não entregues de um aluno
-        public List<String> buscarTokensAtivosPorAluno(String alunoId) {
-            List<Pedido> pedidosAtivos = pedidoRepository.findByAlunoIdAndEntregueFalse(alunoId);
+        public List<String> buscarTokensAtivosPorAluno(String matricula) {
+            List<Pedido> pedidosAtivos = pedidoRepository.findByAluno_MatriculaAndEntregueFalse(matricula);
             return pedidosAtivos.stream()
                     .map(Pedido::getToken) // Mapeia os pedidos para seus tokens
                     .collect(Collectors.toList());

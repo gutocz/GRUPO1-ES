@@ -49,9 +49,9 @@ public class PedidoController {
     }
 
     // Endpoint para buscar tokens de pedidos não entregues de um aluno
-    @GetMapping("/ativos/{alunoId}")
-    public ResponseEntity<List<String>> buscarTokensAtivos(@PathVariable("alunoId") String alunoId) {
-        List<String> tokensAtivos = pedidoService.buscarTokensAtivosPorAluno(alunoId);
+    @GetMapping("/ativos/{matricula}")
+    public ResponseEntity<List<String>> buscarTokensAtivos(@PathVariable("matricula") String matricula) {
+        List<String> tokensAtivos = pedidoService.buscarTokensAtivosPorAluno(matricula);
         return ResponseEntity.ok(tokensAtivos);
     }
 }
