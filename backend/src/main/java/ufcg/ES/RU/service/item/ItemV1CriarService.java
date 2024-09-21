@@ -1,8 +1,8 @@
-package ufcg.ES.RU.service.prato;
+package ufcg.ES.RU.service.item;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ufcg.ES.RU.Model.DTO.prato.ItemPostPutDTO;
+import ufcg.ES.RU.Model.DTO.item.ItemPostPutDTO;
 import ufcg.ES.RU.Model.Item;
 import ufcg.ES.RU.Repository.ItemRepository;
 

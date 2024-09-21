@@ -16,7 +16,7 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="pk_id_prato")
+    @Column(name="pk_id_item")
     @JsonProperty("id")
     private Long id;
 
