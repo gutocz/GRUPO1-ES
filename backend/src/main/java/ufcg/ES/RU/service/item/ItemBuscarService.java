@@ -1,6 +1,6 @@
-package ufcg.ES.RU.service.prato;
+package ufcg.ES.RU.service.item;
 
-import ufcg.ES.RU.Model.DTO.prato.ItemGetDTO;
+import ufcg.ES.RU.Model.DTO.item.ItemGetDTO;
 
 import java.util.List;
 

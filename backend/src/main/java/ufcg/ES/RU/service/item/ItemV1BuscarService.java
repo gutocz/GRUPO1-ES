@@ -1,9 +1,9 @@
-package ufcg.ES.RU.service.prato;
+package ufcg.ES.RU.service.item;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ufcg.ES.RU.Model.DTO.prato.ItemGetDTO;
+import ufcg.ES.RU.Model.DTO.item.ItemGetDTO;
 import ufcg.ES.RU.Model.Item;
 import ufcg.ES.RU.Repository.ItemRepository;
 import ufcg.ES.RU.exceptions.ItemNotExistException;
@@ -39,7 +39,7 @@ public class ItemV1BuscarService implements ItemBuscarService {
                     .descricao(item.getDescricao())
                     .build();
         } else {
-            throw new ItemNotExistException();
+            throw new ItemNotExistException(id);
         }
     }
 

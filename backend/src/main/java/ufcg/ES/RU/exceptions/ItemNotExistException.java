@@ -2,7 +2,7 @@ package ufcg.ES.RU.exceptions;
 
 public class ItemNotExistException extends RUException{
 
-    public ItemNotExistException(){
-        super("Item não cadastrado");
+    public ItemNotExistException(Long id){
+        super("Item de id: " + id + " não cadastrado");
     }
 }

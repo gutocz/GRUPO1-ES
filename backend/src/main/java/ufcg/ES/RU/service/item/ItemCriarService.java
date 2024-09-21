@@ -1,6 +1,6 @@
-package ufcg.ES.RU.service.prato;
+package ufcg.ES.RU.service.item;
 
-import ufcg.ES.RU.Model.DTO.prato.ItemPostPutDTO;
+import ufcg.ES.RU.Model.DTO.item.ItemPostPutDTO;
 import ufcg.ES.RU.Model.Item;
 
 public interface ItemCriarService {
