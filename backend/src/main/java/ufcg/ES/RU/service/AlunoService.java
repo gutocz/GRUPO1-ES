@@ -45,4 +45,34 @@ public class AlunoService {
         if (email == null || email.isEmpty()) new Throwable("Email invalido");
         return usuarioRepository.findAlunoByEmail(email);
     }
+
+    // Método para incrementar saldo do aluno
+    public Aluno incrementarSaldo(String matricula, double valor) {
+        Aluno aluno = usuarioRepository.findAlunoByMatricula(matricula);
+
+        if (aluno == null) {
+            throw new RuntimeException("Aluno não encontrado!");
+        }
+
+        aluno.setSaldo(aluno.getSaldo() + valor);
+        return usuarioRepository.save(aluno);
+    }
+
+    // Método para decrementar saldo do aluno
+    public Aluno decrementarSaldo(String matricula, double valor) {
+        Aluno aluno = usuarioRepository.findAlunoByMatricula(matricula);
+
+        if (aluno == null) {
+            throw new RuntimeException("Aluno não encontrado!");
+        }
+
+        if (aluno.getSaldo() < valor) {
+            throw new RuntimeException("Saldo insuficiente!");
+        }
+
+        aluno.setSaldo(aluno.getSaldo() - valor);
+        return usuarioRepository.save(aluno);
+    }
+
+
 }
