@@ -1,2 +1,12 @@
-# GRUPO1-ES
+# RU Express
+## Grupo 1
 Repositório que centralizará os artefatos usados na disciplina, tais como: links para os repositórios do projeto novo e do projeto real, além de links para documentos auxiliares.
+
+## O que é o RU Express?
+Ru Express é uma aplicação que visa a agilidade e o conforto dos usuários do Restaurante Universitário da UFCG.
+Suas principais funcionalidades incluem:
+- Acesso rápido ao cardápio do dia e da semana;
+- Marmitas pré-montadas para agilidade no ato da compra;
+- Saldo virtual que facilita a compra instantânea da refeição;
+
+Documentação do projeto: link
