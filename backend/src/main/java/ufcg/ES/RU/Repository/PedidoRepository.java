@@ -11,8 +11,5 @@ import java.util.Optional;
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     Optional<Pedido> findByToken(String token);
 
-    // Buscar pedidos de um aluno que ainda não foram entregues
-//    List<Pedido> findByAlunoIdAndEntregueFalse(String matricula);
-
     List<Pedido> findByAluno_MatriculaAndEntregueFalse(String matricula);
 }
