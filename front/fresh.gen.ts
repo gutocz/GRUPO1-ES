@@ -20,6 +20,7 @@ import * as $AlunoLogado from "./islands/AlunoLogado.tsx";
 import * as $FuncionarioLogado from "./islands/FuncionarioLogado.tsx";
 import * as $Modal from "./islands/Modal.tsx";
 import * as $ModalAddPrato from "./islands/ModalAddPrato.tsx";
+import * as $cadastro_1 from "./islands/cadastro.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -45,6 +46,7 @@ const manifest = {
     "./islands/FuncionarioLogado.tsx": $FuncionarioLogado,
     "./islands/Modal.tsx": $Modal,
     "./islands/ModalAddPrato.tsx": $ModalAddPrato,
+    "./islands/cadastro.tsx": $cadastro_1,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

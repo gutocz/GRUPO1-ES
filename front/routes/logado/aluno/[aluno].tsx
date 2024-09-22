@@ -1,8 +1,19 @@
 import Navbar from "../../../components/header/NavBar.tsx";
 import Modal, { openModalPagar } from "../../../islands/Modal.tsx";
 import { days, mealTypes } from "../../../../constants.ts";
+import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 
-export default function AlunoLogado() {
+export const handler: Handlers = {
+    async GET(_, ctx: FreshContext) {
+        const response = await fetch(
+            "http://localhost:8080/api/cardapio/getAll",
+        );
+        const data = await response.text();
+        return ctx.render({ data });
+    },
+};
+
+export default function AlunoLogado({ data }: PageProps) {
     return (
         <div class="bg-[#FAF6F1] min-h-screen">
             <Navbar />

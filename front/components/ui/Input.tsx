@@ -3,9 +3,13 @@ interface Props {
     placeholder: string;
     type: string;
     id: string;
+    name: string;
+    required: boolean;
 }
 
-export default function Input({ label, placeholder, type, id }: Props) {
+export default function Input(
+    { label, placeholder, type, id, name, required }: Props,
+) {
     return (
         <div class="pb-5">
             <label
@@ -20,7 +24,8 @@ export default function Input({ label, placeholder, type, id }: Props) {
                 id={id}
                 placeholder={placeholder}
                 class="bg-[#FAF6F1] px-5 w-full min-h-14 lg:min-h-[72px] text-base rounded-[50px] outline-none"
-                required
+                name={name}
+                required={required}
             />
         </div>
     );
