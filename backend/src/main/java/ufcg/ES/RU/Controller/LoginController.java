@@ -35,9 +35,8 @@ public class LoginController {
 
     @PostMapping("/usuario")
     public ResponseEntity loginUsuario(@RequestBody @Valid LoginDTO login) {
-        String encryptedPassword = new BCryptPasswordEncoder().encode(login.senha());
-        var usu = usuarioRepository.findByMatriculaAndSenha(login.matricula(),encryptedPassword);
-        if (usu != null) {
+        var usu = usuarioRepository.findAlunoByMatricula(login.matricula());
+        if (usu != null && new BCryptPasswordEncoder().matches(login.senha(), usu.getSenha())) {
             return ResponseEntity.status(HttpStatus.OK).body(usu);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não identificado!");
@@ -46,9 +45,8 @@ public class LoginController {
 
     @PostMapping("/funcionario")
     public ResponseEntity loginFuncinario(@RequestBody @Valid LoginDTO login) {
-        String encryptedPassword = new BCryptPasswordEncoder().encode(login.senha());
-        var usu = funcionarioRepository.findFuncionarioByCPFAndSenha (login.matricula(),encryptedPassword);
-        if (usu != null) {
+        var usu = funcionarioRepository.findFuncionarioByCPF(login.matricula());
+        if (usu != null && new BCryptPasswordEncoder().matches(login.senha(), usu.getSenha())) {
             return ResponseEntity.status(HttpStatus.OK).body(usu);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não identificado!");
