@@ -9,4 +9,5 @@ Suas principais funcionalidades incluem:
 - Marmitas pré-montadas para agilidade no ato da compra;
 - Saldo virtual que facilita a compra instantânea da refeição;
 
-Documentação do projeto: link
+Documentação do projeto:
+https://docs.google.com/document/d/1zk47y1uwjIb6i94PZ88dxYUjsniQ2ZbQwjymaBgA1ks/edit
