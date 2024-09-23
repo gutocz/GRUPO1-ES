@@ -2,6 +2,7 @@ import Navbar from "../../../components/header/NavBar.tsx";
 import Modal, { openModalPagar } from "../../../islands/Modal.tsx";
 import { days, mealTypes } from "../../../../constants.ts";
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
+import { useEffect, useState } from "preact/hooks";
 
 export const handler: Handlers = {
     async GET(_, ctx: FreshContext) {
@@ -14,6 +15,18 @@ export const handler: Handlers = {
 };
 
 export default function AlunoLogado({ data }: PageProps) {
+    const [selectedDay, setSelectedDay] = useState("SEGUNDA");
+    const parsedData = JSON.parse(data.data);
+
+    const getMealsForDay = (day: string, mealType: string) => {
+        return parsedData
+            .filter((meal) =>
+                meal.diaDaSemana === day && meal.tipoRefeicao === mealType
+            )
+            .map((meal) => meal.itens)
+            .flat();
+    };
+    
     return (
         <div class="bg-[#FAF6F1] min-h-screen">
             <Navbar />
@@ -76,10 +89,11 @@ export default function AlunoLogado({ data }: PageProps) {
                         {days.map((day, index) => (
                             <button
                                 key={day}
+                                onClick={() => setSelectedDay(day)}
                                 style={{ borderColor: "#F77F00" }}
                                 class={`px-7 text-sm font-medium py-4 ${
-                                    index === 0
-                                        ? "bg-[#FAF6F1] border-b-4  text-orange-700"
+                                    selectedDay === day
+                                        ? "bg-[#FAF6F1] border-b-4 text-orange-700"
                                         : "text-gray-500 hover:bg-gray-100"
                                 }`}
                             >
@@ -100,17 +114,31 @@ export default function AlunoLogado({ data }: PageProps) {
                                 >
                                     {mealType}
                                 </h3>
+
                                 <div class="grid grid-cols-2 gap-4">
-                                    {[...Array(14)].map((_, i) => (
-                                        <div
-                                            key={i}
-                                            class="bg-[#FCBF49] rounded-md p-6"
-                                        >
-                                            <p class="text-sm text-gray-600">
-                                                Descrição do item
+                                    {getMealsForDay(selectedDay, mealType)
+                                            .length > 0
+                                        ? (
+                                            getMealsForDay(
+                                                selectedDay,
+                                                mealType,
+                                            ).map((item, i) => (
+                                                <div
+                                                    key={i}
+                                                    class="bg-[#FCBF49] rounded-md p-6"
+                                                >
+                                                    <p class="text-sm text-gray-600">
+                                                        {item.nome} -{" "}
+                                                        {item.descricao}
+                                                    </p>
+                                                </div>
+                                            ))
+                                        )
+                                        : (
+                                            <p class="text-gray-500 text-center col-span-2">
+                                                Nenhum item disponível
                                             </p>
-                                        </div>
-                                    ))}
+                                        )}
                                 </div>
                             </div>
                         ))}

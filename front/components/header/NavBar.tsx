@@ -1,3 +1,4 @@
+import { AlunoLogado } from "../../routes/loginAluno.tsx";
 import { Button } from "../ui/Button.tsx";
 
 export default function Navbar() {
@@ -23,7 +24,7 @@ export default function Navbar() {
                                 />
                             </svg>
                         </div>
-                        <div class="hidden sm:ml-6 sm:block items-center px-16">
+                        <div class="hidden sm:ml-6 sm:flex gap-6 items-center px-16">
                             <a
                                 href="/"
                                 class="text-ru-orange-500 text-lg "
@@ -31,29 +32,104 @@ export default function Navbar() {
                             >
                                 Home
                             </a>
+                            {AlunoLogado && (
+                                <button class="text-ru-orange-500 text-lg underline">
+                                    Fazer recarga
+                                </button>
+                            )}
                         </div>
                     </div>
-                    <div class="flex flex-row gap-x-6">
-                        <Button
-                            style={{
-                                borderWidth: "1px",
-                                borderColor: "#D4D2E3",
-                            }}
-                            secondary
-                            aria-label="Login"
-                            href="/loginAluno"
-                        >
-                            Login
-                        </Button>
-                        <Button
-                            primary
-                            aria-label="Cadastro"
-                            href="/cadastro"
-                            style={{ color: "white" }}
-                        >
-                            Cadastro
-                        </Button>
-                    </div>
+                    {!AlunoLogado &&
+                        (
+                            <div class="flex flex-row gap-x-6">
+                                <Button
+                                    style={{
+                                        borderWidth: "1px",
+                                        borderColor: "#D4D2E3",
+                                    }}
+                                    secondary
+                                    aria-label="Login"
+                                    href="/loginAluno"
+                                >
+                                    Login
+                                </Button>
+                                <Button
+                                    primary
+                                    aria-label="Cadastro"
+                                    href="/cadastro"
+                                    style={{ color: "white" }}
+                                >
+                                    Cadastro
+                                </Button>
+                            </div>
+                        )}
+                    {AlunoLogado && (
+                        <div>
+                            <span class="text-ru-orange-500 text-lg mr-5">
+                                Saldo: R$00,00
+                            </span>
+                            <button class="bg-ru-orange-500 px-4 pb-2 rounded-[20px]">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="28"
+                                    height="29"
+                                    viewBox="0 0 28 29"
+                                    fill="none"
+                                    class="ml-1"
+                                >
+                                    <mask
+                                        id="mask0_294_294"
+                                        style="mask-type:luminance"
+                                        maskUnits="userSpaceOnUse"
+                                        x="4"
+                                        y="16"
+                                        width="20"
+                                        height="10"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M4.66663 16.9867H23.1465V25.5897H4.66663V16.9867Z"
+                                            fill="white"
+                                        />
+                                    </mask>
+                                    <g mask="url(#mask0_294_294)">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M13.9077 18.7367C8.9365 18.7367 6.4165 19.5907 6.4165 21.2765C6.4165 22.9775 8.9365 23.8397 13.9077 23.8397C18.8777 23.8397 21.3965 22.9857 21.3965 21.2999C21.3965 19.5989 18.8777 18.7367 13.9077 18.7367ZM13.9077 25.5897C11.6222 25.5897 4.6665 25.5897 4.6665 21.2765C4.6665 17.4312 9.941 16.9867 13.9077 16.9867C16.1932 16.9867 23.1465 16.9867 23.1465 21.2999C23.1465 25.1452 17.8732 25.5897 13.9077 25.5897Z"
+                                            fill="white"
+                                        />
+                                    </g>
+                                    <mask
+                                        id="mask1_294_294"
+                                        style="mask-type:luminance"
+                                        maskUnits="userSpaceOnUse"
+                                        x="7"
+                                        y="2"
+                                        width="14"
+                                        height="13"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M7.71143 2.40808H20.1015V14.7964H7.71143V2.40808Z"
+                                            fill="white"
+                                        />
+                                    </mask>
+                                    <g mask="url(#mask1_294_294)">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M13.9076 4.07359C11.4098 4.07359 9.37746 6.10476 9.37746 8.60259C9.3693 11.0923 11.3865 13.1223 13.8738 13.1316L13.9076 13.9646V13.1316C16.4043 13.1316 18.4355 11.0993 18.4355 8.60259C18.4355 6.10476 16.4043 4.07359 13.9076 4.07359ZM13.9076 14.7964H13.8703C10.4613 14.7859 7.6998 12.0058 7.71146 8.59909C7.71146 5.18659 10.4905 2.40759 13.9076 2.40759C17.3236 2.40759 20.1015 5.18659 20.1015 8.60259C20.1015 12.0186 17.3236 14.7964 13.9076 14.7964Z"
+                                            fill="white"
+                                        />
+                                    </g>
+                                </svg>
+                                <span class="text-white">Perfil</span>
+                            </button>
+                        </div>
+                    )}
                 </div>
 
                 <div class="sm:hidden flex flex-row items-center px-6 justify-between w-full relative">

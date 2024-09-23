@@ -2,7 +2,8 @@ import Navbar from "../components/header/NavBar.tsx";
 import Input from "../components/ui/Input.tsx";
 import { Button } from "../components/ui/Button.tsx";
 import Container from "../components/content/Container.tsx";
-import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
+import { signal } from "@preact/signals";
 
 export const handler: Handlers = {
     async GET(req, ctx) {
@@ -42,9 +43,8 @@ export const handler: Handlers = {
 
             const status = response.status;
             const text = await response.text();
-            const redirectUrl = new URL("/loginAluno", req.url);
-            redirectUrl.searchParams.set("status", status.toString());
-            redirectUrl.searchParams.set("responseText", text);
+            const redirectUrl = new URL(`/logado/aluno/${formValues.matricula}`, req.url);
+            
             return Response.redirect(redirectUrl.toString(), 303);
         } catch (error) {
             console.error("Fetch error:", error);
@@ -75,7 +75,14 @@ const INPUTS = [
     },
 ];
 
+export const AlunoLogado = signal(false);
+
 export default function LoginAluno({ data }: PageProps) {
+    const logado = data.status;
+    if (logado === 200) {
+        AlunoLogado.value = true;
+    }
+
     return (
         <div class="bg-[#FAF6F1] min-h-screen ">
             <Navbar />
