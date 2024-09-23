@@ -92,7 +92,7 @@ public class AlunoController {
         }
     }
 
-    @DeleteMapping("deleteAluno/{matricula}")
+    @DeleteMapping("/deleteAluno/{matricula}")
     public ResponseEntity deleteUsuario(@PathVariable String matricula) {
         Aluno aluno = alunoService.getUsuarioByMatricula(matricula);
         if (aluno == null){
