@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/GRUPO1-ES.iml" filepath="$PROJECT_DIR$/.idea/GRUPO1-ES.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RUManager.main.iml" filepath="$PROJECT_DIR$/.idea/modules/RUManager.main.iml" />
     </modules>
   </component>
 </project>
