@@ -4,9 +4,8 @@
 
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
-import * as $api_joke from "./routes/api/joke.ts";
 import * as $cadastro from "./routes/cadastro.tsx";
-import * as $greet_name_ from "./routes/greet/[name].tsx";
+import * as $esqueciSenha from "./routes/esqueciSenha.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $logado_aluno_aluno_ from "./routes/logado/aluno/[aluno].tsx";
 import * as $logado_aluno_perfil from "./routes/logado/aluno/perfil.tsx";
@@ -16,6 +15,7 @@ import * as $logado_funcionario_editar from "./routes/logado/funcionario/editar.
 import * as $logado_funcionario_perfil from "./routes/logado/funcionario/perfil.tsx";
 import * as $loginAluno from "./routes/loginAluno.tsx";
 import * as $loginFuncionario from "./routes/loginFuncionario.tsx";
+import * as $novaSenha from "./routes/novaSenha.tsx";
 import * as $AlunoLogado from "./islands/AlunoLogado.tsx";
 import * as $FuncionarioLogado from "./islands/FuncionarioLogado.tsx";
 import * as $Modal from "./islands/Modal.tsx";
@@ -27,9 +27,8 @@ const manifest = {
   routes: {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
-    "./routes/api/joke.ts": $api_joke,
     "./routes/cadastro.tsx": $cadastro,
-    "./routes/greet/[name].tsx": $greet_name_,
+    "./routes/esqueciSenha.tsx": $esqueciSenha,
     "./routes/index.tsx": $index,
     "./routes/logado/aluno/[aluno].tsx": $logado_aluno_aluno_,
     "./routes/logado/aluno/perfil.tsx": $logado_aluno_perfil,
@@ -40,6 +39,7 @@ const manifest = {
     "./routes/logado/funcionario/perfil.tsx": $logado_funcionario_perfil,
     "./routes/loginAluno.tsx": $loginAluno,
     "./routes/loginFuncionario.tsx": $loginFuncionario,
+    "./routes/novaSenha.tsx": $novaSenha,
   },
   islands: {
     "./islands/AlunoLogado.tsx": $AlunoLogado,

@@ -2,6 +2,7 @@ import { AlunoLogado } from "../../routes/loginAluno.tsx";
 import { Button } from "../ui/Button.tsx";
 
 export default function Navbar() {
+    console.log(AlunoLogado)
     return (
         <>
             <nav
@@ -32,14 +33,14 @@ export default function Navbar() {
                             >
                                 Home
                             </a>
-                            {AlunoLogado && (
+                            {AlunoLogado.value && (
                                 <button class="text-ru-orange-500 text-lg underline">
                                     Fazer recarga
                                 </button>
                             )}
                         </div>
                     </div>
-                    {!AlunoLogado &&
+                    {!AlunoLogado.value &&
                         (
                             <div class="flex flex-row gap-x-6">
                                 <Button
@@ -63,7 +64,7 @@ export default function Navbar() {
                                 </Button>
                             </div>
                         )}
-                    {AlunoLogado && (
+                    {AlunoLogado.value  && (
                         <div>
                             <span class="text-ru-orange-500 text-lg mr-5">
                                 Saldo: R$00,00
