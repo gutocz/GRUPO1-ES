@@ -65,7 +65,7 @@ public class FuncionarioController {
         }
     }
 
-    @PutMapping("/atualizaFuncionario/{matricula}")
+    @PutMapping("/atualizaFuncionario/{cpf}")
     public ResponseEntity updateAluno(@PathVariable String cpf, @RequestBody Funcionario funcionario) {
         Funcionario funcionarioAux = funcionarioService.getUsuarioByCPF(cpf);
 

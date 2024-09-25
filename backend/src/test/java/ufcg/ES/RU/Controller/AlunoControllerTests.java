@@ -1,4 +1,4 @@
-package ufcg.ES.RU.controller;
+package ufcg.ES.RU.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -160,29 +160,20 @@ public class AlunoControllerTests {
         }
 
         @Test
-        @DisplayName("Quando consultamos um aluno existente")
-        void GetAlunoTest() throws Exception {
+        @DisplayName("Quando consultamos todos os usuários sem usuários cadastrados")
+        void AlunoGetAllWithoutAlunoTest() throws Exception {
             // Arrange
+            usuarioRepository.deleteAll();
 
             // Act
-            String responseJSONString = driver.perform(get(URI_ALUNO + "/Aluno/222")
+            String responseJSONString = driver.perform(get(URI_ALUNO + "/getAll")
                             .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isCreated())
+                    .andExpect(status().isBadRequest())
                     .andDo(print())
                     .andReturn().getResponse().getContentAsString();
 
-            Aluno alunoO = mapper.readValue(responseJSONString, Aluno.class);
-
-            // Assert
-            assertAll(
-                    () -> assertEquals(alunoO.getMatricula(), alunoT.getMatricula()),
-                    () -> assertEquals(alunoO.getNome(), alunoT.getNome()),
-                    () -> assertEquals(alunoO.getEmail(), alunoT.getEmail()),
-                    // () -> assertEquals(alunoO.getSenha(), encryptedPassword),
-                    () -> assertEquals(alunoO.getTelefone(), alunoT.getTelefone()),
-                    () -> assertEquals(alunoO.getCurso(), alunoT.getCurso())
-            );
         }
+
 
         @Test
         @DisplayName("Quando consultamos um aluno sem passar a matrícula na entrada")
@@ -212,7 +203,7 @@ public class AlunoControllerTests {
 
         @Test
         @DisplayName("Quando consultamos um aluno existente")
-        void GetInexistentAlunoTest() throws Exception {
+        void GetExistentAlunoTest() throws Exception {
             // Arrange
 
             // Act
@@ -386,7 +377,7 @@ public class AlunoControllerTests {
             SenhaDTO senha = new SenhaDTO(alunoT.getMatricula(), "333");
 
             // Act
-            String responseJSONString = driver.perform(put(URI_ALUNO + "/atualizaSenha")
+            String responseJSONString = driver.perform(put(URI_ALUNO + "/atualizaSenha/")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(senha)))
                     .andExpect(status().isOk())
@@ -401,7 +392,7 @@ public class AlunoControllerTests {
             SenhaDTO senha = new SenhaDTO("999", "333");
 
             // Act
-            String responseJSONString = driver.perform(put(URI_ALUNO + "/atualizaSenha")
+            String responseJSONString = driver.perform(put(URI_ALUNO + "/atualizaSenha/")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(senha)))
                     .andExpect(status().isNotFound())
