@@ -35,7 +35,7 @@ public class CardapioV1MudarItensImpl implements CardapioMudarItens {
                     .map(item -> modelMapper.map(itemBuscarService.buscarItemPorId(item.getId()), Item.class))
                     .collect(Collectors.toList());
 
-            cardapio.setItens(itens);
+            //cardapio.setItens(itens);
 
             cardapioRepository.save(cardapio);
 
