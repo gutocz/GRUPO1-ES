@@ -7,10 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import ufcg.ES.RU.Model.Aluno;
 import ufcg.ES.RU.Model.DTO.SenhaDTO;
 import ufcg.ES.RU.Model.Funcionario;
-import ufcg.ES.RU.service.AlunoService;
 import ufcg.ES.RU.service.FuncionarioService;
 
 import java.util.List;
@@ -65,7 +63,7 @@ public class FuncionarioController {
         }
     }
 
-    @PutMapping("/atualizaFuncionario/{matricula}")
+    @PutMapping("/atualizaFuncionario/{cpf}")
     public ResponseEntity updateAluno(@PathVariable String cpf, @RequestBody Funcionario funcionario) {
         Funcionario funcionarioAux = funcionarioService.getUsuarioByCPF(cpf);
 

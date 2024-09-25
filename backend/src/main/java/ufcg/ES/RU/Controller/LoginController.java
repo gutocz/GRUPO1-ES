@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ufcg.ES.RU.Model.DTO.LoginDTO;
-import ufcg.ES.RU.Model.DTO.LoginFuncionarioDTO;
 import ufcg.ES.RU.Repository.FuncionarioRepository;
 import ufcg.ES.RU.Repository.UsuarioRepository;
 import ufcg.ES.RU.service.LoginService;
@@ -37,7 +36,9 @@ public class LoginController {
     @PostMapping("/usuario")
     public ResponseEntity loginUsuario(@RequestBody @Valid LoginDTO login) {
         var usu = usuarioRepository.findAlunoByMatricula(login.matricula());
-        if (usu != null && new BCryptPasswordEncoder().matches(login.senha(), usu.getSenha())) {
+        if (usu == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não identificado!");
+        boolean result = new BCryptPasswordEncoder().matches(login.senha(), usu.getSenha());
+        if (result) {
             return ResponseEntity.status(HttpStatus.OK).body(usu);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não identificado!");
@@ -45,12 +46,15 @@ public class LoginController {
     }
 
     @PostMapping("/funcionario")
-    public ResponseEntity loginFuncinario(@RequestBody @Valid LoginFuncionarioDTO login) {
-        var usu = funcionarioRepository.findFuncionarioByCPF(login.cpf());
-        if (usu != null && new BCryptPasswordEncoder().matches(login.senha(), usu.getSenha())) {
+    public ResponseEntity loginFuncinario(@RequestBody @Valid LoginDTO login) {
+        var usu = funcionarioRepository.findFuncionarioByCPF(login.matricula());
+        if (usu == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não identificado!");
+        boolean result = new BCryptPasswordEncoder().matches(login.senha(), usu.getSenha());
+        if (result) {
             return ResponseEntity.status(HttpStatus.OK).body(usu);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não identificado!");
         }
     }
 }
+
