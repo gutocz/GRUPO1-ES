@@ -1,0 +1,65 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.3'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.graalvm.buildtools.native' version '0.9.28'
+}
+
+group = 'ufcg.psoct'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.modelmapper:modelmapper:3.1.1'
+	runtimeOnly 'com.h2database:h2'
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
+	implementation 'org.hibernate:hibernate-core:6.0.0.Final'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'org.springframework.security:spring-security-crypto'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.3.3'
+	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '3.3.3'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.3.3'
+	testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '6.3.3'
+	implementation 'com.auth0:java-jwt:4.4.0'
+    //implementation 'org.hibernate:hibernate-entitymanager:6.0.0.Final'
+	implementation 'org.springframework.security:spring-security-crypto:6.0.0'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	implementation 'org.modelmapper:modelmapper:2.4.5'
+
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-parameters"
+}
+
+
+
+
