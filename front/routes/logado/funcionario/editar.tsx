@@ -1,4 +1,4 @@
-import { days, mealTypes } from "../../../../constants.ts";
+import { days, mealTypes } from "../../../constants.ts";
 import Navbar from "../../../components/header/NavBar.tsx";
 
 export default function Editar() {

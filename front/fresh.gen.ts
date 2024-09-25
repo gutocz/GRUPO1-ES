@@ -18,8 +18,10 @@ import * as $loginFuncionario from "./routes/loginFuncionario.tsx";
 import * as $novaSenha from "./routes/novaSenha.tsx";
 import * as $AlunoLogado from "./islands/AlunoLogado.tsx";
 import * as $FuncionarioLogado from "./islands/FuncionarioLogado.tsx";
+import * as $LoginAluno from "./islands/LoginAluno.tsx";
 import * as $Modal from "./islands/Modal.tsx";
 import * as $ModalAddPrato from "./islands/ModalAddPrato.tsx";
+import * as $Navbar from "./islands/Navbar.tsx";
 import * as $cadastro_1 from "./islands/cadastro.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
@@ -44,8 +46,10 @@ const manifest = {
   islands: {
     "./islands/AlunoLogado.tsx": $AlunoLogado,
     "./islands/FuncionarioLogado.tsx": $FuncionarioLogado,
+    "./islands/LoginAluno.tsx": $LoginAluno,
     "./islands/Modal.tsx": $Modal,
     "./islands/ModalAddPrato.tsx": $ModalAddPrato,
+    "./islands/Navbar.tsx": $Navbar,
     "./islands/cadastro.tsx": $cadastro_1,
   },
   baseUrl: import.meta.url,

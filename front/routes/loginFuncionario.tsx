@@ -1,13 +1,70 @@
 import Navbar from "../components/header/NavBar.tsx";
-import { FreshContext, Handlers } from "$fresh/server.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 import Input from "../components/ui/Input.tsx";
 import { Button } from "../components/ui/Button.tsx";
 import Container from "../components/content/Container.tsx";
 
 export const handler: Handlers = {
-    GET(_req: Request, _ctx: FreshContext) {
-        return _ctx.render();
+    async GET(req, ctx) {
+        const url = new URL(req.url);
+        const status = url.searchParams.get("status");
+        const responseText = url.searchParams.get("responseText");
+
+        url.searchParams.delete("status");
+        url.searchParams.delete("responseText");
+
+        return ctx.render({
+            status,
+            responseText,
+            formValues: {},
+        });
     },
+
+    async POST(req, ctx) {
+        const formData = await req.formData();
+        const formValues: Record<string, string> = {};
+
+        formData.forEach((value, key) => {
+            formValues[key] = value.toString();
+        });
+
+        try {
+            const response = await fetch(
+                "http://localhost:8080/api/login/funcionario",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formValues),
+                },
+            );
+
+            const status = response.status;
+            if (status === 200) {
+                const redirectUrl = new URL(`/logado/aluno/${formValues.matricula}`, req.url);
+                const headers = new Headers();
+                headers.set('Set-Cookie', `userType=funcionario; Path=/; HttpOnly;`);
+                return new Response(null, {
+                    status: 303,
+                    headers: {
+                        'Location': redirectUrl.toString(),
+                        'Set-Cookie': `userType=funcionario; Path=/; HttpOnly;`
+                    }
+                });
+            } else {
+                throw new Error("Login failed");
+            }
+        } catch (error) {
+            console.error("Fetch error:", error);
+            const redirectUrl = new URL("/loginFuncionario", req.url);
+            redirectUrl.searchParams.set("status", "500");
+            redirectUrl.searchParams.set("responseText", error.message);
+            return Response.redirect(redirectUrl.toString(), 303);
+        }
+    }
+
+
 };
 
 const INPUTS = [
@@ -15,17 +72,23 @@ const INPUTS = [
         label: "CPF",
         placeholder: "1123456789",
         type: "text",
+        name: "cpf",
+        required: true,
         id: "cpf-input",
     },
     {
         label: "Senha",
         placeholder: "********",
         type: "password",
+        name: "senha",
+        required: true,
         id: "senha-input",
     },
 ];
 
-export default function loginFuncionario() {
+export default function loginFuncionario({ data }: PageProps) {
+
+
     return (
         <div class="bg-[#FAF6F1] min-h-screen ">
             <Navbar />
@@ -52,15 +115,16 @@ export default function loginFuncionario() {
                         {INPUTS.map((input) => <Input {...input} />)}
                     </div>
                     <div class="flex flex-row w-full justify-center gap-x-3 mx-auto pt-6">
-                        <Button
+                        <button
                             style={{
                                 color: "white",
                             }}
-                            primary
+                            type="submit"
+                            class="bg-ru-orange-500 rounded-full cursor-pointer leading-[18px] font-bold text-lg px-6 py-[18px] items-center hover:bg-[#f17011]"
                             aria-label="Criar conta"
                         >
                             Entrar
-                        </Button>
+                        </button>
                         <Button
                             style={{
                                 borderWidth: "1px",

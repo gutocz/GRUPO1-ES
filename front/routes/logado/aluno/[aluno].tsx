@@ -1,35 +1,50 @@
 import Navbar from "../../../components/header/NavBar.tsx";
 import Modal, { openModalPagar } from "../../../islands/Modal.tsx";
-import { days, mealTypes } from "../../../../constants.ts";
+import { days, mealTypes } from "../../../constants.ts";
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
+
+interface CustomPageProps extends PageProps {
+    cookieValue: string | null;
+}
+
+function getCookieValue(cookieString: string | null, cookieName: string): string | null {
+    if (!cookieString) return null;
+    const cookies = cookieString.split("; ");
+    const cookie = cookies.find(c => c.startsWith(cookieName + "="));
+    return cookie ? cookie.split("=")[1] : null;
+}
 
 export const handler: Handlers = {
-    async GET(_, ctx: FreshContext) {
-        const response = await fetch(
-            "http://localhost:8080/api/cardapio/getAll",
-        );
+    async GET(req, ctx: FreshContext) {
+        const cookieValue = getCookieValue(req.headers.get("cookie"), "userType");
+
+        if (!cookieValue) {
+            return Response.redirect(new URL("/loginAluno", req.url), 303);
+        }
+
+        const response = await fetch("http://localhost:8080/api/cardapio/getAll");
         const data = await response.text();
-        return ctx.render({ data });
+        return ctx.render({ data, cookieValue });
     },
 };
 
-export default function AlunoLogado({ data }: PageProps) {
+export default function AlunoLogado({ data }: CustomPageProps) {
     const [selectedDay, setSelectedDay] = useState("SEGUNDA");
     const parsedData = JSON.parse(data.data);
 
     const getMealsForDay = (day: string, mealType: string) => {
         return parsedData
-            .filter((meal) =>
+            .filter((meal: string) =>
                 meal.diaDaSemana === day && meal.tipoRefeicao === mealType
             )
-            .map((meal) => meal.itens)
+            .map((meal: string) => meal.itens)
             .flat();
     };
-    
+
     return (
         <div class="bg-[#FAF6F1] min-h-screen">
-            <Navbar />
+            <Navbar logado={data.cookieValue} />
 
             <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div class="mb-6 flex justify-between items-center">
@@ -91,11 +106,10 @@ export default function AlunoLogado({ data }: PageProps) {
                                 key={day}
                                 onClick={() => setSelectedDay(day)}
                                 style={{ borderColor: "#F77F00" }}
-                                class={`px-7 text-sm font-medium py-4 ${
-                                    selectedDay === day
-                                        ? "bg-[#FAF6F1] border-b-4 text-orange-700"
-                                        : "text-gray-500 hover:bg-gray-100"
-                                }`}
+                                class={`px-7 text-sm font-medium py-4 ${selectedDay === day
+                                    ? "bg-[#FAF6F1] border-b-4 text-orange-700"
+                                    : "text-gray-500 hover:bg-gray-100"
+                                    }`}
                             >
                                 {day}
                             </button>
@@ -117,7 +131,7 @@ export default function AlunoLogado({ data }: PageProps) {
 
                                 <div class="grid grid-cols-2 gap-4">
                                     {getMealsForDay(selectedDay, mealType)
-                                            .length > 0
+                                        .length > 0
                                         ? (
                                             getMealsForDay(
                                                 selectedDay,

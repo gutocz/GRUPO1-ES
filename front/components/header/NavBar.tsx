@@ -1,8 +1,12 @@
-import { AlunoLogado } from "../../routes/loginAluno.tsx";
 import { Button } from "../ui/Button.tsx";
 
-export default function Navbar() {
-    console.log(AlunoLogado)
+
+export default function Navbar({ logado }: { logado?: string }) {
+    let isAlunoLogado = false
+    if (logado === "aluno") {
+        isAlunoLogado = !isAlunoLogado
+    }
+
     return (
         <>
             <nav
@@ -33,14 +37,14 @@ export default function Navbar() {
                             >
                                 Home
                             </a>
-                            {AlunoLogado.value && (
+                            {isAlunoLogado && (
                                 <button class="text-ru-orange-500 text-lg underline">
                                     Fazer recarga
                                 </button>
                             )}
                         </div>
                     </div>
-                    {!AlunoLogado.value &&
+                    {!isAlunoLogado &&
                         (
                             <div class="flex flex-row gap-x-6">
                                 <Button
@@ -64,7 +68,7 @@ export default function Navbar() {
                                 </Button>
                             </div>
                         )}
-                    {AlunoLogado.value  && (
+                    {isAlunoLogado && (
                         <div>
                             <span class="text-ru-orange-500 text-lg mr-5">
                                 Saldo: R$00,00

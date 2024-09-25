@@ -3,7 +3,6 @@ import Input from "../components/ui/Input.tsx";
 import { Button } from "../components/ui/Button.tsx";
 import Container from "../components/content/Container.tsx";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { signal } from "@preact/signals";
 
 export const handler: Handlers = {
     async GET(req, ctx) {
@@ -42,10 +41,23 @@ export const handler: Handlers = {
             );
 
             const status = response.status;
-            const text = await response.text();
-            const redirectUrl = new URL(`/logado/aluno/${formValues.matricula}`, req.url);
-            
-            return Response.redirect(redirectUrl.toString(), 303);
+            if (status === 200) {
+                const redirectUrl = new URL(`/logado/aluno/${formValues.matricula}`, req.url);
+                const headers = new Headers();
+                const cookieValue = `userType=aluno; Path=/; HttpOnly; Secure; SameSite=Strict`;
+
+                headers.set('Set-Cookie', cookieValue);
+
+                return new Response(null, {
+                    status: 303,
+                    headers: {
+                        'Location': redirectUrl.toString(),
+                        'Set-Cookie': cookieValue
+                    }
+                });
+            } else {
+                throw new Error("Login failed");
+            }
         } catch (error) {
             console.error("Fetch error:", error);
             const redirectUrl = new URL("/loginAluno", req.url);
@@ -53,7 +65,9 @@ export const handler: Handlers = {
             redirectUrl.searchParams.set("responseText", error.message);
             return Response.redirect(redirectUrl.toString(), 303);
         }
-    },
+    }
+
+
 };
 
 const INPUTS = [
@@ -75,13 +89,8 @@ const INPUTS = [
     },
 ];
 
-export const AlunoLogado = signal(false);
 
 export default function LoginAluno({ data }: PageProps) {
-    const logado = data.status;
-    if (logado === 200) {
-        AlunoLogado.value = true;
-    }
 
     return (
         <div class="bg-[#FAF6F1] min-h-screen ">
