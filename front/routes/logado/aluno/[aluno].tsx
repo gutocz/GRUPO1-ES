@@ -3,16 +3,10 @@ import Modal, { openModalPagar } from "../../../islands/Modal.tsx";
 import { days, mealTypes } from "../../../constants.ts";
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import { useState } from "preact/hooks";
+import { getCookieValue } from "../../../sdk/getCookieValue.tsx"
 
 interface CustomPageProps extends PageProps {
     cookieValue: string | null;
-}
-
-function getCookieValue(cookieString: string | null, cookieName: string): string | null {
-    if (!cookieString) return null;
-    const cookies = cookieString.split("; ");
-    const cookie = cookies.find(c => c.startsWith(cookieName + "="));
-    return cookie ? cookie.split("=")[1] : null;
 }
 
 export const handler: Handlers = {

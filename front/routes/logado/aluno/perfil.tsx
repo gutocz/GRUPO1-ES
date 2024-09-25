@@ -1,4 +1,20 @@
 import Navbar from "../../../components/header/NavBar.tsx";
+import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
+import { getCookieValue } from "../../../sdk/getCookieValue.tsx"
+
+export const handler: Handlers = {
+    async GET(req, ctx: FreshContext) {
+        const cookieValue = getCookieValue(req.headers.get("cookie"), "userType");
+
+        if (!cookieValue) {
+            return Response.redirect(new URL("/loginAluno", req.url), 303);
+        }
+
+        const response = await fetch("http://localhost:8080/api/cardapio/getAll");
+        const data = await response.text();
+        return ctx.render({ data, cookieValue });
+    },
+};
 
 export default function PerfilAluno() {
     return (
