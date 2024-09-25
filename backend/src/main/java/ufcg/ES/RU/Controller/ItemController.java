@@ -41,21 +41,18 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarItemPorId(@Valid @PathVariable Long id){
+    public ResponseEntity<?> buscarItemPorId(@Valid @PathVariable("id") Long id){
         return ResponseEntity.status(HttpStatus.OK).body(itemBuscarService.buscarItemPorId(id));
     }
 
     @DeleteMapping("/{id}/delete")
-    public ResponseEntity deleteItem(@Valid @PathVariable Long id){
+    public ResponseEntity deleteItem(@Valid @PathVariable("id") Long id){
         itemDeleteService.deleteItem(id);
-        return ResponseEntity.status(HttpStatus.OK
-
-
-        ).body("item deletado");
+        return ResponseEntity.status(HttpStatus.OK).body("item deletado");
     }
 
     @PutMapping("/{id}/put")
-    public ResponseEntity mudarItem(@Valid @PathVariable Long id, @Valid @RequestBody ItemPostPutDTO itemPostPutDTO){
+    public ResponseEntity mudarItem(@Valid @PathVariable("id") Long id, @Valid @RequestBody ItemPostPutDTO itemPostPutDTO){
         return ResponseEntity.status(HttpStatus.OK).body(itemMudarService.mudarItem(itemPostPutDTO, id));
     }
 

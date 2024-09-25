@@ -36,7 +36,7 @@ public class CardapioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarItemPorId(@Valid @PathVariable Long id){
+    public ResponseEntity<?> buscarItemPorId(@Valid @PathVariable("id") Long id){
         return ResponseEntity.status(HttpStatus.OK).body(cardapioBuscarService.buscarCardapioPorId(id));
     }
 
@@ -48,12 +48,12 @@ public class CardapioController {
     //**
     // Os itens que já foram cadastrados no cardapio serão sobrescritos*/
     @PutMapping("/{id}/addItens")
-    public ResponseEntity adicionarItens(@Valid @RequestBody CardapioPutItensDTO cardapioPutItensDTO, @PathVariable Long id){
+    public ResponseEntity adicionarItens(@Valid @RequestBody CardapioPutItensDTO cardapioPutItensDTO, @PathVariable("id") Long id){
         return  ResponseEntity.status(HttpStatus.OK).body(cardapioMudarItens.adicionarItens(cardapioPutItensDTO, id));
     }
 
     @DeleteMapping("/{id}/delete")
-    public ResponseEntity deleteCardapio(@Valid @PathVariable Long id){
+    public ResponseEntity deleteCardapio(@Valid @PathVariable("id") Long id){
         cardapioDeleteService.deleteCardapio(id);
         return  ResponseEntity.status(HttpStatus.OK).body("Cardapio deletado");
     }
