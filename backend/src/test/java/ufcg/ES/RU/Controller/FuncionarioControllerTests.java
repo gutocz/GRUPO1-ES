@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import ufcg.ES.RU.Model.Aluno;
 import ufcg.ES.RU.Model.DTO.SenhaDTO;
 import ufcg.ES.RU.Model.Funcionario;
 import ufcg.ES.RU.Repository.FuncionarioRepository;
@@ -65,7 +64,7 @@ public class FuncionarioControllerTests {
     public class FuncionarioTestCase {
         @Test
         @DisplayName("Quando criamos um funcionário com dados válidos")
-        void criarFuncionário() throws Exception {
+        void criarFuncionario() throws Exception {
             // Arrange
             Funcionario funcionarioI = Funcionario.builder()
                     .CPF("123")
@@ -102,7 +101,7 @@ public class FuncionarioControllerTests {
             Funcionario funcionarioO = null;
 
             // Act
-            String responseJSONString = driver.perform(post(URI_FUNCIONARIO + "/create")
+            driver.perform(post(URI_FUNCIONARIO + "/create")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(funcionarioO)))
                     .andExpect(status().isBadRequest())
@@ -124,7 +123,7 @@ public class FuncionarioControllerTests {
                     .build();
 
             // Act
-            String responseJSONString = driver.perform(post(URI_FUNCIONARIO + "/create")
+            driver.perform(post(URI_FUNCIONARIO + "/create")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(funcionarioI)))
                     .andExpect(status().isBadRequest())
@@ -164,7 +163,7 @@ public class FuncionarioControllerTests {
             funcionarioRepository.deleteAll();
 
             // Act
-            String responseJSONString = driver.perform(get(URI_FUNCIONARIO + "/getAll")
+            driver.perform(get(URI_FUNCIONARIO + "/getAll")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest())
                     .andDo(print())
@@ -202,7 +201,7 @@ public class FuncionarioControllerTests {
             // Arrange
 
             // Act
-            String responseJSONString = driver.perform(get(URI_FUNCIONARIO + "/")
+            driver.perform(get(URI_FUNCIONARIO + "/")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isNotFound())
                     .andDo(print())
@@ -215,7 +214,7 @@ public class FuncionarioControllerTests {
             // Arrange
 
             // Act
-            String responseJSONString = driver.perform(get(URI_FUNCIONARIO + "/111")
+            driver.perform(get(URI_FUNCIONARIO + "/111")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isNotFound())
                     .andDo(print())
@@ -327,7 +326,7 @@ public class FuncionarioControllerTests {
             // Arrange
 
             // Act
-            String responseJSONString = driver.perform(put(URI_FUNCIONARIO + "/validaCPF/999")
+            driver.perform(put(URI_FUNCIONARIO + "/validaCPF/999")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isNotFound())
                     .andDo(print())
@@ -340,7 +339,7 @@ public class FuncionarioControllerTests {
             // Arrange
 
             // Act
-            String responseJSONString = driver.perform(delete(URI_FUNCIONARIO + "/deleteFuncionario/" + funcionarioT.getCPF())
+            driver.perform(delete(URI_FUNCIONARIO + "/deleteFuncionario/" + funcionarioT.getCPF())
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
                     .andDo(print())
@@ -353,7 +352,7 @@ public class FuncionarioControllerTests {
             // Arrange
 
             // Act
-            String responseJSONString = driver.perform(delete(URI_FUNCIONARIO + "/deleteFuncionario/111")
+            driver.perform(delete(URI_FUNCIONARIO + "/deleteFuncionario/111")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isNotFound())
                     .andDo(print())
@@ -367,7 +366,7 @@ public class FuncionarioControllerTests {
             SenhaDTO senha = new SenhaDTO(funcionarioT.getCPF(), "333");
 
             // Act
-            String responseJSONString = driver.perform(put(URI_FUNCIONARIO + "/atualizaSenha/")
+            driver.perform(put(URI_FUNCIONARIO + "/atualizaSenha/")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(senha)))
                     .andExpect(status().isOk())
@@ -382,7 +381,7 @@ public class FuncionarioControllerTests {
             SenhaDTO senha = new SenhaDTO("999", "333");
 
             // Act
-            String responseJSONString = driver.perform(put(URI_FUNCIONARIO + "/atualizaSenha/")
+            driver.perform(put(URI_FUNCIONARIO + "/atualizaSenha/")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(senha)))
                     .andExpect(status().isNotFound())

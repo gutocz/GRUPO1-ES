@@ -1,6 +1,5 @@
 package ufcg.ES.RU.Controller;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.transaction.Transactional;
@@ -13,12 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import ufcg.ES.RU.Model.Aluno;
 import ufcg.ES.RU.Model.DTO.LoginDTO;
-import ufcg.ES.RU.Model.DTO.SenhaDTO;
 import ufcg.ES.RU.Model.Funcionario;
 import ufcg.ES.RU.Repository.FuncionarioRepository;
 import ufcg.ES.RU.Repository.UsuarioRepository;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -116,7 +112,7 @@ public class LoginControllerTests {
             LoginDTO dto = new LoginDTO(alunoT.getMatricula(), "444");
 
             // Act
-            String responseJSONString = driver.perform(post(URI_LOGIN + "/usuario")
+            driver.perform(post(URI_LOGIN + "/usuario")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(dto)))
                     .andExpect(status().isNotFound())
@@ -131,7 +127,7 @@ public class LoginControllerTests {
             LoginDTO dto = new LoginDTO("444", "333");
 
             // Act
-            String responseJSONString = driver.perform(post(URI_LOGIN + "/usuario")
+            driver.perform(post(URI_LOGIN + "/usuario")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(dto)))
                     .andExpect(status().isNotFound())
@@ -172,7 +168,7 @@ public class LoginControllerTests {
             LoginDTO dto = new LoginDTO(funcionarioT.getCPF(), "111");
 
             // Act
-            String responseJSONString = driver.perform(post(URI_LOGIN + "/funcionario")
+            driver.perform(post(URI_LOGIN + "/funcionario")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(dto)))
                     .andExpect(status().isNotFound())
@@ -187,7 +183,7 @@ public class LoginControllerTests {
             LoginDTO dto = new LoginDTO("444", "222");
 
             // Act
-            String responseJSONString = driver.perform(post(URI_LOGIN + "/funcionario")
+            driver.perform(post(URI_LOGIN + "/funcionario")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(dto)))
                     .andExpect(status().isNotFound())

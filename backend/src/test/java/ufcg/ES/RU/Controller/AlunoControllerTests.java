@@ -103,7 +103,7 @@ public class AlunoControllerTests {
             Aluno alunoI = null;
 
             // Act
-            String responseJSONString = driver.perform(post(URI_ALUNO + "/create")
+            driver.perform(post(URI_ALUNO + "/create")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(alunoI)))
                     .andExpect(status().isBadRequest())
@@ -126,7 +126,7 @@ public class AlunoControllerTests {
                     .build();
 
             // Act
-            String responseJSONString = driver.perform(post(URI_ALUNO + "/create")
+            driver.perform(post(URI_ALUNO + "/create")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(alunoI)))
                     .andExpect(status().isBadRequest())
@@ -166,7 +166,7 @@ public class AlunoControllerTests {
             usuarioRepository.deleteAll();
 
             // Act
-            String responseJSONString = driver.perform(get(URI_ALUNO + "/getAll")
+            driver.perform(get(URI_ALUNO + "/getAll")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest())
                     .andDo(print())
@@ -181,7 +181,7 @@ public class AlunoControllerTests {
             // Arrange
 
             // Act
-            String responseJSONString = driver.perform(get(URI_ALUNO + "/Aluno/")
+            driver.perform(get(URI_ALUNO + "/Aluno/")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isNotFound())
                     .andDo(print())
@@ -194,7 +194,7 @@ public class AlunoControllerTests {
             // Arrange
 
             // Act
-            String responseJSONString = driver.perform(get(URI_ALUNO + "/Aluno/111")
+            driver.perform(get(URI_ALUNO + "/Aluno/111")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isNotFound())
                     .andDo(print())
@@ -337,7 +337,7 @@ public class AlunoControllerTests {
             // Arrange
 
             // Act
-            String responseJSONString = driver.perform(put(URI_ALUNO + "/validaemail/t@a.a")
+            driver.perform(put(URI_ALUNO + "/validaemail/t@a.a")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isNotFound())
                     .andDo(print())
@@ -350,7 +350,7 @@ public class AlunoControllerTests {
             // Arrange
 
             // Act
-            String responseJSONString = driver.perform(delete(URI_ALUNO + "/deleteAluno/" + alunoT.getMatricula())
+            driver.perform(delete(URI_ALUNO + "/deleteAluno/" + alunoT.getMatricula())
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
                     .andDo(print())
@@ -363,7 +363,7 @@ public class AlunoControllerTests {
             // Arrange
 
             // Act
-            String responseJSONString = driver.perform(delete(URI_ALUNO + "/deleteAluno/111")
+            driver.perform(delete(URI_ALUNO + "/deleteAluno/111")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isNotFound())
                     .andDo(print())
@@ -377,7 +377,7 @@ public class AlunoControllerTests {
             SenhaDTO senha = new SenhaDTO(alunoT.getMatricula(), "333");
 
             // Act
-            String responseJSONString = driver.perform(put(URI_ALUNO + "/atualizaSenha/")
+            driver.perform(put(URI_ALUNO + "/atualizaSenha/")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(senha)))
                     .andExpect(status().isOk())
@@ -392,7 +392,7 @@ public class AlunoControllerTests {
             SenhaDTO senha = new SenhaDTO("999", "333");
 
             // Act
-            String responseJSONString = driver.perform(put(URI_ALUNO + "/atualizaSenha/")
+            driver.perform(put(URI_ALUNO + "/atualizaSenha/")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(senha)))
                     .andExpect(status().isNotFound())
@@ -407,7 +407,7 @@ public class AlunoControllerTests {
 //            SenhaDTO senha = new SenhaDTO("111", "333");
 //
 //            // Act
-//            String responseJSONString = driver.perform(put(URI_ALUNO + "/atualizaSenha")
+//            driver.perform(put(URI_ALUNO + "/atualizaSenha")
 //                            .contentType(MediaType.APPLICATION_JSON)
 //                            .content(mapper.writeValueAsString(senha)))
 //                    .andExpect(status().isNotFound())
