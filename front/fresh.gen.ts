@@ -21,6 +21,7 @@ import * as $FuncionarioLogado from "./islands/FuncionarioLogado.tsx";
 import * as $LoginAluno from "./islands/LoginAluno.tsx";
 import * as $Modal from "./islands/Modal.tsx";
 import * as $ModalAddPrato from "./islands/ModalAddPrato.tsx";
+import * as $ModalEditPrato from "./islands/ModalEditPrato.tsx";
 import * as $Navbar from "./islands/Navbar.tsx";
 import * as $cadastro_1 from "./islands/cadastro.tsx";
 import { type Manifest } from "$fresh/server.ts";
@@ -49,6 +50,7 @@ const manifest = {
     "./islands/LoginAluno.tsx": $LoginAluno,
     "./islands/Modal.tsx": $Modal,
     "./islands/ModalAddPrato.tsx": $ModalAddPrato,
+    "./islands/ModalEditPrato.tsx": $ModalEditPrato,
     "./islands/Navbar.tsx": $Navbar,
     "./islands/cadastro.tsx": $cadastro_1,
   },

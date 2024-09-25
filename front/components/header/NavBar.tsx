@@ -3,7 +3,7 @@ import { Button } from "../ui/Button.tsx";
 
 export default function Navbar({ logado }: { logado?: string }) {
     let isAlunoLogado = false
-    if (logado === "aluno") {
+    if (logado?.length) {
         isAlunoLogado = !isAlunoLogado
     }
 
@@ -30,17 +30,17 @@ export default function Navbar({ logado }: { logado?: string }) {
                             </svg>
                         </div>
                         <div class="hidden sm:ml-6 sm:flex gap-6 items-center px-16">
-                            <a
+                            {!isAlunoLogado && <a
                                 href="/"
                                 class="text-ru-orange-500 text-lg "
                                 aria-current="page"
                             >
                                 Home
-                            </a>
+                            </a>}
                             {isAlunoLogado && (
-                                <button class="text-ru-orange-500 text-lg underline">
+                                <a href="/logado/aluno/recarga" class="text-ru-orange-500 text-lg underline">
                                     Fazer recarga
-                                </button>
+                                </a>
                             )}
                         </div>
                     </div>

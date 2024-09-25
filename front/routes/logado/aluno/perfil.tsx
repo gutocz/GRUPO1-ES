@@ -1,6 +1,6 @@
 import Navbar from "../../../components/header/NavBar.tsx";
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
-import { getCookieValue } from "../../../sdk/getCookieValue.tsx"
+import { getCookieValue } from "../../../sdk/getCookieValue.ts"
 
 export const handler: Handlers = {
     async GET(req, ctx: FreshContext) {

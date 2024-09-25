@@ -3,7 +3,7 @@ import Modal, { openModalPagar } from "../../../islands/Modal.tsx";
 import { days, mealTypes } from "../../../constants.ts";
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import { useState } from "preact/hooks";
-import { getCookieValue } from "../../../sdk/getCookieValue.tsx"
+import { getCookieValue } from "../../../sdk/getCookieValue.ts"
 
 interface CustomPageProps extends PageProps {
     cookieValue: string | null;
