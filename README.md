@@ -9,5 +9,10 @@ Suas principais funcionalidades incluem:
 - Marmitas pré-montadas para agilidade no ato da compra;
 - Saldo virtual que facilita a compra instantânea da refeição;
 
-Documentação do projeto:
-https://docs.google.com/document/d/1zk47y1uwjIb6i94PZ88dxYUjsniQ2ZbQwjymaBgA1ks/edit
+## Como compilar?
+Usamos o Springboot e Deno fresh para a produção do site, para compilar é necessário:
+- JDK 17;
+- [Gradle](https://gradle.org/install/);
+- [Deno Fresh](https://docs.deno.com/runtime/fundamentals/installation/);
+
+[Documentação do projeto](https://docs.google.com/document/d/1zk47y1uwjIb6i94PZ88dxYUjsniQ2ZbQwjymaBgA1ks/edit?usp=sharing)
