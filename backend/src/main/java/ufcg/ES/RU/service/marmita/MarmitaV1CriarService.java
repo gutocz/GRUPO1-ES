@@ -9,8 +9,11 @@ import ufcg.ES.RU.Model.Item;
 import ufcg.ES.RU.Model.Marmita;
 import ufcg.ES.RU.Repository.MarmitaRepository;
 import ufcg.ES.RU.service.item.ItemBuscarService;
+import ufcg.ES.RU.service.item.ItemMudarService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,20 +26,34 @@ public class MarmitaV1CriarService implements MarmitaCriarService {
     private ItemBuscarService itemBuscarService;
 
     @Autowired
+    private ItemMudarService itemMudarService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
     public Marmita criarMarmita(MarmitaPostDTO marmitaPostDTO) {
-        List<Item> itens = marmitaPostDTO.getItens().stream()
-                .map(item -> modelMapper.map(itemBuscarService.buscarItemPorId(item.getId()), Item.class))
-                .collect(Collectors.toList());
+        Set <Item> itens = new HashSet<>();
 
         Marmita marmita = Marmita.builder()
                 .tipoMarmita(marmitaPostDTO.getTipoMarmita())
                 .itens(itens)
                 .build();
 
+        Marmita marmitaNow = marmitaRepository.save(marmita);
 
-        return marmitaRepository.save(marmita);
+        itens = marmitaPostDTO.getItens().stream()
+                .map(item -> {
+                    Item itemNow = modelMapper.map(itemBuscarService.buscarItemPorId(item.getId()), Item.class);
+                    itemMudarService.adicionarMarmita(itemNow.getId(), marmitaNow.getId());
+
+                    return itemNow;
+                })
+                .collect(Collectors.toSet());
+
+        marmitaNow.setItens(itens);
+
+
+        return marmitaRepository.save(marmitaNow);
     }
 }

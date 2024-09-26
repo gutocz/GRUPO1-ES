@@ -10,8 +10,10 @@ import ufcg.ES.RU.Model.Item;
 import ufcg.ES.RU.Repository.CardapioRepository;
 import ufcg.ES.RU.exceptions.CardapioNotExistException;
 import ufcg.ES.RU.service.item.ItemBuscarService;
+import ufcg.ES.RU.service.item.ItemMudarService;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,16 +28,24 @@ public class CardapioV1MudarItensImpl implements CardapioMudarItens {
     @Autowired
     private ItemBuscarService itemBuscarService;
 
+    @Autowired
+    private ItemMudarService itemMudarService;
+
     @Override
     public CardapioGetDTO adicionarItens(CardapioPutItensDTO cardapioPutItensDTO, Long id) {
         if (cardapioRepository.existsById(id)){
             Cardapio cardapio = cardapioRepository.getById(id);
 
-            List<Item> itens = cardapioPutItensDTO.getItens().stream()
-                    .map(item -> modelMapper.map(itemBuscarService.buscarItemPorId(item.getId()), Item.class))
-                    .collect(Collectors.toList());
+            Set<Item> itens = cardapioPutItensDTO.getItens().stream()
+                    .map(item -> {
+                        Item itemNow = modelMapper.map(itemBuscarService.buscarItemPorId(item.getId()), Item.class);
+                        itemMudarService.adicionarCardapio(itemNow.getId(), cardapio.getId());
 
-            //cardapio.setItens(itens);
+                        return itemNow;
+                    })
+                    .collect(Collectors.toSet());
+
+            cardapio.setItens(itens);
 
             cardapioRepository.save(cardapio);
 

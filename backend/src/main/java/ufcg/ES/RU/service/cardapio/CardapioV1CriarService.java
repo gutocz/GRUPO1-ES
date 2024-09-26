@@ -10,8 +10,11 @@ import ufcg.ES.RU.Model.Item;
 import ufcg.ES.RU.Model.TipoRefeicao;
 import ufcg.ES.RU.Repository.CardapioRepository;
 import ufcg.ES.RU.service.item.ItemBuscarService;
+import ufcg.ES.RU.service.item.ItemMudarService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,14 +27,16 @@ public class CardapioV1CriarService implements CardapioCriarService{
     private ItemBuscarService itemBuscarService;
 
     @Autowired
+    private ItemMudarService itemMudarService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
 
     @Override
     public Cardapio criarCardapio(CardapioPostDTO cardapioPostDTO) {
-        List<Item> itens = cardapioPostDTO.getItens().stream()
-                .map(item -> modelMapper.map(itemBuscarService.buscarItemPorId(item.getId()), Item.class))
-                .collect(Collectors.toList());
+
+        Set<Item> itens = new HashSet<>();
 
         Cardapio cardapio = Cardapio.builder()
                 .diaDaSemana(cardapioPostDTO.getDiaDaSemana(cardapioPostDTO.getDiaDaSemana()))
@@ -39,6 +44,20 @@ public class CardapioV1CriarService implements CardapioCriarService{
                 .itens(itens)
                 .build();
 
-        return cardapioRepository.save(cardapio);
+        Cardapio cardapioNow =  cardapioRepository.save(cardapio);
+
+        itens = cardapioPostDTO.getItens().stream()
+                .map(item -> {
+                    Item itemNow = modelMapper.map(itemBuscarService.buscarItemPorId(item.getId()), Item.class);
+                    itemMudarService.adicionarCardapio(itemNow.getId(), cardapioNow.getId());
+
+                    return itemNow;
+                })
+                .collect(Collectors.toSet());
+
+        cardapioNow.setItens(itens);
+
+        return cardapioRepository.save(cardapioNow);
+
     }
 }
