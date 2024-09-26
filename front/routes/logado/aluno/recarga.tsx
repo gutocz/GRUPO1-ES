@@ -13,8 +13,7 @@ export const handler: Handlers = {
         }
 
         const response = await fetch(`http://localhost:8080/api/usuarios/Aluno/${cookieValue}`);
-        console.log(response)
-        const data = await response.text();
+        const data = await response.json();
         return ctx.render({ data, cookieValue });
     },
 };
@@ -36,7 +35,7 @@ export default function Recarga({ data }: CustomPageProps) {
 
     return (
         <div>
-            <Navbar logado={data.cookieValue} />
+            <Navbar logado={data.cookieValue} saldo={data.data.saldo} />
             <div class="bg-[#FAF6F1] min-h-screen flex pt-20 justify-center">
                 <div class="flex gap-8">
                     <div style={{ borderColor: "#F77F00" }} class="bg-white w-[600px] p-6 rounded-lg border max-h-[576px]">

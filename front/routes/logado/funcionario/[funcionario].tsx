@@ -21,7 +21,7 @@ export const handler: Handlers = {
         }
 
         const response = await fetch("http://localhost:8080/api/item/getAll");
-
+       
         const data = await response.json();
         return ctx.render({ data, cookieValue });
     },
@@ -115,7 +115,7 @@ export default function FuncionarioLogado({ data }: CustomPageProps) {
 
     return (
         <div class="bg-[#FAF6F1] min-h-screen">
-            <Navbar logado={data.cookieValue} />
+            <Navbar logado={data.cookieValue} isFuncionario />
             <Container>
                 <div class="max-w-6xl mx-auto">
                     <div class="flex justify-between items-center mb-6">

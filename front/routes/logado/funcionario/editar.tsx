@@ -4,7 +4,7 @@ import Navbar from "../../../components/header/NavBar.tsx";
 export default function Editar() {
     return (
         <div class="bg-[#FAF6F1] min-h-screen">
-            <Navbar />
+            <Navbar isFuncionario />
             <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div class="w-full">
                     <div class="flex justify-between mb-6 bg-white px-20 rounded-lg">

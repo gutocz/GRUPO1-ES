@@ -66,7 +66,7 @@ export default function PerfilAluno({ data }: CustomProps) {
                             <div>
                                 <p class="text-black text-2xl">Matrícula:</p>
                                 <p class="text-[#8b8b8b] text-xl pt-4">
-                                    {data.data.matricula.replace(/\d/g, '*', 6)}
+                                    {data.data.matricula?.replace(/\d/g, '*', 6)}
                                 </p>
                             </div>
                             <div>
