@@ -26,6 +26,7 @@ import * as $ModalAddPrato from "./islands/ModalAddPrato.tsx";
 import * as $ModalCardapio from "./islands/ModalCardapio.tsx";
 import * as $ModalEditPrato from "./islands/ModalEditPrato.tsx";
 import * as $Navbar from "./islands/Navbar.tsx";
+import * as $Token from "./islands/Token.tsx";
 import * as $cadastro_1 from "./islands/cadastro.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
@@ -59,6 +60,7 @@ const manifest = {
     "./islands/ModalCardapio.tsx": $ModalCardapio,
     "./islands/ModalEditPrato.tsx": $ModalEditPrato,
     "./islands/Navbar.tsx": $Navbar,
+    "./islands/Token.tsx": $Token,
     "./islands/cadastro.tsx": $cadastro_1,
   },
   baseUrl: import.meta.url,
