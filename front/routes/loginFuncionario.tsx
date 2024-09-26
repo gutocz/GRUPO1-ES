@@ -139,7 +139,7 @@ export default function loginFuncionario({ data }: PageProps) {
                     </div>
                 </form>
 
-                <a class="text-ru-orange-500 underline flex justify-center pt-10">
+                <a href="/esqueciSenha" class="text-ru-orange-500 underline flex justify-center pt-10">
                     Esqueci minha senha
                 </a>
             </Container>

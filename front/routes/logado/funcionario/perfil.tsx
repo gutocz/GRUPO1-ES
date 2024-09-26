@@ -3,11 +3,11 @@ import Navbar from "../../../components/header/NavBar.tsx";
 export default function PerfilAluno() {
     return (
         <>
-            <Navbar />
+            <Navbar isFuncionario/>
 
             <div class="bg-[#f7f1e6] min-h-screen p-10">
                 <div class="max-w-4xl mx-auto">
-                    {/* Seção de Detalhes do Usuário */}
+        
                     <div class="bg-white rounded-xl p-6 shadow-md mb-6 min-h-[500px] py-20 px-28">
                         <div class="grid grid-cols-2 gap-12">
                             <div>

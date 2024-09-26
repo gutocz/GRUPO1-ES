@@ -3,7 +3,7 @@ import Modal, { openModalPagar } from "../../../islands/Modal.tsx";
 import { days, mealTypes } from "../../../constants.ts";
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import { useState } from "preact/hooks";
-import { getCookieValue } from "../../../sdk/getCookieValue.tsx"
+import { getCookieValue } from "../../../sdk/getCookieValue.ts"
 
 interface CustomPageProps extends PageProps {
     cookieValue: string | null;
@@ -17,28 +17,33 @@ export const handler: Handlers = {
             return Response.redirect(new URL("/loginAluno", req.url), 303);
         }
 
+        const alunoRes = await fetch(`http://localhost:8080/api/usuarios/Aluno/${cookieValue}`);
+
         const response = await fetch("http://localhost:8080/api/cardapio/getAll");
+        const cardapioRes = await fetch("http://localhost:8080/api/cardapio/getAll")
+        const cardapios = await cardapioRes.json()
         const data = await response.text();
-        return ctx.render({ data, cookieValue });
+        const aluno = await alunoRes.json()
+        return ctx.render({ data, cookieValue, cardapios, aluno });
     },
 };
 
 export default function AlunoLogado({ data }: CustomPageProps) {
     const [selectedDay, setSelectedDay] = useState("SEGUNDA");
-    const parsedData = JSON.parse(data.data);
+
 
     const getMealsForDay = (day: string, mealType: string) => {
-        return parsedData
-            .filter((meal: string) =>
-                meal.diaDaSemana === day && meal.tipoRefeicao === mealType
+        return data.cardapios
+            .filter((cardapio) =>
+                cardapio.diaDaSemana.trim() === day.trim() && cardapio.tipoRefeicao === mealType
             )
-            .map((meal: string) => meal.itens)
+            .map((cardapio) => cardapio.itens)
             .flat();
     };
 
     return (
         <div class="bg-[#FAF6F1] min-h-screen">
-            <Navbar logado={data.cookieValue} />
+            <Navbar logado={data.cookieValue} saldo={data.aluno.saldo} />
 
             <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div class="mb-6 flex justify-between items-center">
@@ -95,12 +100,12 @@ export default function AlunoLogado({ data }: CustomPageProps) {
 
                 <div class="w-full">
                     <div class="flex justify-between mb-6 bg-white px-20 rounded-lg">
-                        {days.map((day, index) => (
+                        {days.map((day) => (
                             <button
                                 key={day}
-                                onClick={() => setSelectedDay(day)}
+                                onClick={() => setSelectedDay(day.trim())}
                                 style={{ borderColor: "#F77F00" }}
-                                class={`px-7 text-sm font-medium py-4 ${selectedDay === day
+                                class={`px-7 text-sm font-medium py-4 ${selectedDay === day.trim()
                                     ? "bg-[#FAF6F1] border-b-4 text-orange-700"
                                     : "text-gray-500 hover:bg-gray-100"
                                     }`}
@@ -126,27 +131,21 @@ export default function AlunoLogado({ data }: CustomPageProps) {
                                 <div class="grid grid-cols-2 gap-4">
                                     {getMealsForDay(selectedDay, mealType)
                                         .length > 0
-                                        ? (
-                                            getMealsForDay(
-                                                selectedDay,
-                                                mealType,
-                                            ).map((item, i) => (
-                                                <div
-                                                    key={i}
-                                                    class="bg-[#FCBF49] rounded-md p-6"
-                                                >
-                                                    <p class="text-sm text-gray-600">
-                                                        {item.nome} -{" "}
-                                                        {item.descricao}
-                                                    </p>
-                                                </div>
-                                            ))
-                                        )
-                                        : (
-                                            <p class="text-gray-500 text-center col-span-2">
-                                                Nenhum item disponível
-                                            </p>
-                                        )}
+                                        ? (getMealsForDay(selectedDay, mealType).map((mealItem) => (
+
+                                            <div
+                                                key={mealItem.id}
+                                                class="bg-ru-orange-500 rounded-full p-6"
+                                            >
+                                                <p class="text-sm text-black">
+                                                    {mealItem.nome} -{" "}
+                                                    {mealItem.descricao}
+                                                </p>
+                                            </div>
+                                        ))) : <p class="text-gray-500 text-center col-span-2">
+                                            Nenhum item disponível
+                                        </p>}
+
                                 </div>
                             </div>
                         ))}

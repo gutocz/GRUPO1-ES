@@ -69,3 +69,6 @@ yarn.lock
 
 # Arquivos temporários de teste
 test-data/
+
+ES_RU.mv.db
+ES_RU.trace.db

@@ -44,7 +44,7 @@ export const handler: Handlers = {
             if (status === 200) {
                 const redirectUrl = new URL(`/logado/aluno/${formValues.matricula}`, req.url);
                 const headers = new Headers();
-                const cookieValue = `userType=aluno; Path=/; HttpOnly; Secure; SameSite=Strict`;
+                const cookieValue = `userType=${formValues.matricula}; Path=/; HttpOnly; Secure; SameSite=Strict`;
 
                 headers.set('Set-Cookie', cookieValue);
 
@@ -142,7 +142,7 @@ export default function LoginAluno({ data }: PageProps) {
                     </div>
                 </form>
 
-                <a class="text-ru-orange-500 underline flex justify-center pt-10">
+                <a href="/esqueciSenha" class="text-ru-orange-500 underline flex justify-center pt-10">
                     Esqueci minha senha
                 </a>
             </Container>

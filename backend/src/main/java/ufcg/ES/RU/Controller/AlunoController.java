@@ -54,7 +54,7 @@ public class AlunoController {
     }
 
     @GetMapping("/Aluno/{matricula}")
-    public ResponseEntity getAlunoByMatricula(@PathVariable String matricula) {
+    public ResponseEntity getAlunoByMatricula(@PathVariable("matricula") String matricula) {
         if (matricula == null) throw  new IllegalArgumentException("matricula não informada");
         Aluno aluno = alunoService.getUsuarioByMatricula(matricula);
         if (aluno != null){
@@ -65,7 +65,7 @@ public class AlunoController {
     }
 
     @PutMapping("/atualizaAluno/{matricula}")
-    public ResponseEntity updateAluno(@PathVariable String matricula, @RequestBody Aluno usuario) {
+    public ResponseEntity updateAluno(@PathVariable("matricula") String matricula, @RequestBody Aluno usuario) {
         Aluno aluno = alunoService.getUsuarioByMatricula(matricula);
 
         if (aluno.getSenha() == null || aluno.getSenha().isEmpty()) {
@@ -83,7 +83,7 @@ public class AlunoController {
     }
 
     @PutMapping("/validaemail/{email}")
-    public ResponseEntity validaEmail(@PathVariable String email) {
+    public ResponseEntity validaEmail(@PathVariable("email") String email) {
         Aluno aluno = alunoService.validaEmail(email);
         if (aluno != null) {
             return ResponseEntity.status(HttpStatus.FOUND).body(aluno);
@@ -93,7 +93,7 @@ public class AlunoController {
     }
 
     @DeleteMapping("/deleteAluno/{matricula}")
-    public ResponseEntity deleteUsuario(@PathVariable String matricula) {
+    public ResponseEntity deleteUsuario(@PathVariable("matricula") String matricula) {
         Aluno aluno = alunoService.getUsuarioByMatricula(matricula);
         if (aluno == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
@@ -126,7 +126,7 @@ public class AlunoController {
 
     // Incrementar saldo do aluno (recarga)
     @PutMapping("/recarga/{matricula}")
-    public ResponseEntity<Aluno> recarregarSaldo(@PathVariable String matricula, @RequestParam double valor) {
+    public ResponseEntity<Aluno> recarregarSaldo(@PathVariable("matricula") String matricula, @RequestParam double valor) {
         Aluno aluno = alunoService.incrementarSaldo(matricula, valor);
         return ResponseEntity.ok(aluno);
     }
