@@ -36,9 +36,9 @@ public class AlunoController {
         aluno.setSenha(encryptedPassword);
 
         Aluno savedUsuario = alunoService.saveUsuario(aluno);
-        if (savedUsuario != null ){
+        if (savedUsuario != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUsuario);
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Falha ao salvar o aluno");
         }
     }
@@ -46,20 +46,21 @@ public class AlunoController {
     @GetMapping("/getAll")
     public ResponseEntity getAllAluno() {
         List<Aluno> usuarios = alunoService.getAllUsuarios();
-        if (usuarios.size() != 0){
+        if (usuarios.size() != 0) {
             return ResponseEntity.status(HttpStatus.CREATED).body(usuarios);
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Sem alunos cadastrados");
         }
     }
 
     @GetMapping("/Aluno/{matricula}")
     public ResponseEntity getAlunoByMatricula(@PathVariable("matricula") String matricula) {
-        if (matricula == null) throw  new IllegalArgumentException("matricula não informada");
+        if (matricula == null)
+            throw new IllegalArgumentException("matricula não informada");
         Aluno aluno = alunoService.getUsuarioByMatricula(matricula);
-        if (aluno != null){
+        if (aluno != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(aluno);
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sem alunos cadastrados");
         }
     }
@@ -95,7 +96,7 @@ public class AlunoController {
     @DeleteMapping("/deleteAluno/{matricula}")
     public ResponseEntity deleteUsuario(@PathVariable("matricula") String matricula) {
         Aluno aluno = alunoService.getUsuarioByMatricula(matricula);
-        if (aluno == null){
+        if (aluno == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
         }
         alunoService.deleteUsuario(matricula);
@@ -103,10 +104,10 @@ public class AlunoController {
     }
 
     @PutMapping("/atualizaSenha/")
-    public ResponseEntity updateAluno( @RequestBody SenhaDTO senha) {
+    public ResponseEntity updateAluno(@RequestBody SenhaDTO senha) {
 
         Aluno aluno = alunoService.getUsuarioByMatricula(senha.matricula());
-        if (aluno == null){
+        if (aluno == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
         }
         if (aluno.getSenha() == null || aluno.getSenha().isEmpty()) {
@@ -126,10 +127,10 @@ public class AlunoController {
 
     // Incrementar saldo do aluno (recarga)
     @PutMapping("/recarga/{matricula}")
-    public ResponseEntity<Aluno> recarregarSaldo(@PathVariable("matricula") String matricula, @RequestParam double valor) {
+    public ResponseEntity<Aluno> recarregarSaldo(@PathVariable("matricula") String matricula,
+            @RequestParam(name = "valor") double valor) {
         Aluno aluno = alunoService.incrementarSaldo(matricula, valor);
         return ResponseEntity.ok(aluno);
     }
 
 }
-
