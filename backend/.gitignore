@@ -1,0 +1,71 @@
+# Diretório de build do Gradle
+/build/
+.gradle/
+
+# Diretório de build do Maven (se por acaso for usado)
+target/
+
+# Configurações de ambiente da IDE (IntelliJ, Eclipse, VSCode, etc.)
+*.iml
+.idea/
+*.ipr
+*.iws
+*.suo
+*.vscode/
+*.swp
+*.swo
+*.class
+.project
+.classpath
+.settings/
+.cache/
+out/
+
+# Dependências baixadas pelo Gradle
+/dependencies/
+
+# Logs
+*.log
+spring.log
+
+# Arquivos de configuração temporários
+*.tmp
+*.temp
+
+# Arquivos de execução do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração do sistema
+.env
+.env.local
+
+# Diretórios de relatórios
+reports/
+test-results/
+test-output/
+
+# Binários e executáveis
+*.war
+*.jar
+*.ear
+
+# Arquivos de cache da build
+.cache/
+# Arquivos de cache de configuração do Gradle
+.gradle/
+# Diretório de distribuição do Gradle Wrapper
+/gradle/
+
+# Arquivos de lock do sistema
+package-lock.json
+yarn.lock
+
+# Diretórios de distribuição
+/dist/
+
+# Cobertura de código
+/coverage/
+
+# Arquivos temporários de teste
+test-data/
