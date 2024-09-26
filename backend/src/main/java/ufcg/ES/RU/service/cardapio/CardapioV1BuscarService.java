@@ -11,6 +11,7 @@ import ufcg.ES.RU.Repository.CardapioRepository;
 import ufcg.ES.RU.exceptions.CardapioNotExistException;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,9 +37,9 @@ public class CardapioV1BuscarService implements CardapioBuscarService {
         if (cardapioRepository.existsById(id)){
             Cardapio cardapio = cardapioRepository.findById(id).get();
 
-            List<ItemGetDTO> itens = cardapio.getItens().stream()
+            Set<ItemGetDTO> itens = cardapio.getItens().stream()
                     .map(item -> modelMapper.map(item, ItemGetDTO.class))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
 
             return CardapioGetDTO.builder()
                     .id(cardapio.getId())

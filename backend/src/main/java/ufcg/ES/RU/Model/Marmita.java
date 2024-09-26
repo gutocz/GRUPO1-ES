@@ -7,7 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -26,8 +28,12 @@ public class Marmita {
     @Column(name = "tipoMarmita", nullable = false)
     private TipoMarmita tipoMarmita;
 
-    @OneToMany
-    @JsonProperty("itens")
-    private List<Item> itens;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "marmita_item",
+            joinColumns = @JoinColumn(name = "marmita_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    private Set<Item> itens = new HashSet<>();
 
 }

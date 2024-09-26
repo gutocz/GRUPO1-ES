@@ -5,11 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ufcg.ES.RU.Model.DTO.item.ItemGetDTO;
 import ufcg.ES.RU.Model.Item;
 import ufcg.ES.RU.Model.TipoMarmita;
 import ufcg.ES.RU.Model.TipoRefeicao;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -24,6 +26,6 @@ public class MarmitaGetDTO {
     private TipoMarmita tipoMarmita;
 
     @JsonProperty("itens")
-    private List<Item> itens;
+    private Set<ItemGetDTO> itens;
 
 }

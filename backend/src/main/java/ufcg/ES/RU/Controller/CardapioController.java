@@ -2,10 +2,12 @@ package ufcg.ES.RU.Controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ufcg.ES.RU.Model.DTO.cardapio.CardapioGetDTO;
 import ufcg.ES.RU.Model.DTO.cardapio.CardapioPostDTO;
 import ufcg.ES.RU.Model.DTO.cardapio.CardapioPutItensDTO;
 import ufcg.ES.RU.service.cardapio.CardapioBuscarService;
@@ -30,6 +32,9 @@ public class CardapioController {
     @Autowired
     private CardapioMudarItens cardapioMudarItens;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @GetMapping("/getAll")
     public ResponseEntity buscarCardapios(){
         return ResponseEntity.status(HttpStatus.OK).body(cardapioBuscarService.listarTodosCardapios());
@@ -42,7 +47,7 @@ public class CardapioController {
 
     @PostMapping("/create")
     public ResponseEntity criarCardapio(@Valid @RequestBody CardapioPostDTO cardapioPostDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(cardapioCriarService.criarCardapio(cardapioPostDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(cardapioCriarService.criarCardapio(cardapioPostDTO), CardapioGetDTO.class));
     }
 
     //**

@@ -2,10 +2,12 @@ package ufcg.ES.RU.Controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ufcg.ES.RU.Model.DTO.item.ItemGetDTO;
 import ufcg.ES.RU.service.item.ItemDeleteService;
 import ufcg.ES.RU.Model.DTO.item.ItemPostPutDTO;
 import ufcg.ES.RU.service.item.ItemBuscarService;
@@ -29,10 +31,13 @@ public class ItemController {
     @Autowired
     private ItemMudarService itemMudarService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
 
     @PostMapping("/create")
     public ResponseEntity<?> criaPrato(@Valid @RequestBody ItemPostPutDTO itemPostPutDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(itemCriarService.criarPrato(itemPostPutDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(itemCriarService.criarPrato(itemPostPutDTO), ItemGetDTO.class));
     }
 
     @GetMapping("/getAll")

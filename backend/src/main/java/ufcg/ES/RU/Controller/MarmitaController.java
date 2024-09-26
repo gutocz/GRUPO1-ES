@@ -2,10 +2,12 @@ package ufcg.ES.RU.Controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ufcg.ES.RU.Model.DTO.marmita.MarmitaGetDTO;
 import ufcg.ES.RU.Model.DTO.marmita.MarmitaPostDTO;
 import ufcg.ES.RU.service.marmita.MarmitaBuscarService;
 import ufcg.ES.RU.service.marmita.MarmitaCriarService;
@@ -21,10 +23,13 @@ public class MarmitaController {
     @Autowired
     private MarmitaBuscarService marmitaBuscarService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
 
     @PostMapping("/create")
     public ResponseEntity criarMarmita(@Valid @RequestBody MarmitaPostDTO marmitaPostDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(marmitaCriarService.criarMarmita(marmitaPostDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(marmitaCriarService.criarMarmita(marmitaPostDTO), MarmitaGetDTO.class));
     }
 
     @GetMapping("/getAll")

@@ -9,6 +9,7 @@ import ufcg.ES.RU.Model.DTO.item.ItemGetDTO;
 import ufcg.ES.RU.Model.Item;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -26,6 +27,6 @@ public class CardapioGetDTO {
     private String tipoRefeicao;
 
     @JsonProperty("itens")
-    private List<ItemGetDTO> items;
+    private Set<ItemGetDTO> items;
 
 }
