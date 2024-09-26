@@ -1,7 +1,7 @@
 import { Button } from "../ui/Button.tsx";
 
 
-export default function Navbar({ logado, saldo, isFuncionario }: { logado?: string, saldo?: string, inFuncionario?: boolean }) {
+export default function Navbar({ logado, saldo, isFuncionario }: { logado?: string, saldo?: string, isFuncionario?: boolean }) {
     let isAlunoLogado = false
     if (logado?.length) {
         isAlunoLogado = !isAlunoLogado
@@ -53,6 +53,9 @@ export default function Navbar({ logado, saldo, isFuncionario }: { logado?: stri
                                 Modificar Cardapios
                             </a>
                             }
+                            {isFuncionario && <a href={`/logado/funcionario/12345678912`} class="text-ru-orange-500 text-lg underline">
+                                Pratos disponível
+                            </a>}
 
                         </div>
                     </div>

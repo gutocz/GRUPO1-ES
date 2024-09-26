@@ -1,17 +1,17 @@
 import { signal } from "@preact/signals";
 import { Button } from "../components/ui/Button.tsx";
 
-export const openModalPagar = signal(false);
+export const openModalPedir = signal(false);
 
 const VALOR = -5
 
-export default function Modal({ aluno }: { aluno: string }) {
+export default function ModalPedirMarmita({ aluno }: { aluno: string }) {
 
     return (
-        <dialog open={openModalPagar.value} id="my_modal_1" class="modal bg-[#C9AA97]">
+        <dialog open={openModalPedir.value} id="my_modal_1" class="modal bg-[#C9AA97]">
             <div class="modal-box bg-white rounded-lg text-black text-center px-16 py-16">
                 <h3 class="text-lg font-bold">
-                    Você decidiu realizar a refeição no local!
+                    Você decidiu pedir marmita!
                 </h3>
                 <h2 class="py-8">
                     Voce deseja pagar?

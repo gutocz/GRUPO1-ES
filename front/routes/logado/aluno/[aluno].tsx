@@ -5,6 +5,7 @@ import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import { useState } from "preact/hooks";
 import { getCookieValue } from "../../../sdk/getCookieValue.ts"
 import Token, { openToken } from "../../../islands/Token.tsx";
+import ModalPedirMarmita, { openModalPedir } from "../../../islands/ModalPedirMarmita.tsx";
 
 interface CustomPageProps extends PageProps {
     cookieValue: string | null;
@@ -113,7 +114,7 @@ export default function AlunoLogado({ data }: CustomPageProps) {
                         </span>
                     </div>
                     <div class="space-x-4">
-                        <Modal aluno={data.cookieValue} saldo={data.aluno.saldo} />
+                        <Modal aluno={data.cookieValue} />
                         <button
                             onClick={() =>
                                 openModalPagar.value = !openModalPagar.value}
@@ -121,12 +122,14 @@ export default function AlunoLogado({ data }: CustomPageProps) {
                         >
                             Refeição no local
                         </button>
-                        <button class="bg-ru-orange-500 text-black px-14 border py-2 rounded-md text-sm font-medium">
+
+                        <button onClick={() =>
+                            openModalPedir.value = !openModalPedir.value} class="bg-ru-orange-500 text-black px-14 border py-2 rounded-md text-sm font-medium">
                             Pedir marmita
                         </button>
                     </div>
                 </div>
-
+                <ModalPedirMarmita aluno={data.cookieValue} />
                 <div class="w-full">
                     <div class="flex justify-between mb-6 bg-white px-20 rounded-lg">
                         {days.map((day) => (
