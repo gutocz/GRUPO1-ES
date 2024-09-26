@@ -12,6 +12,7 @@ interface CustomPageProps extends PageProps {
 }
 
 export const handler: Handlers = {
+
     async GET(req, ctx) {
         const cookieValue = getCookieValue(req.headers.get("cookie"), "userType");
 
@@ -20,6 +21,7 @@ export const handler: Handlers = {
         }
 
         const response = await fetch("http://localhost:8080/api/item/getAll");
+
         const data = await response.json();
         return ctx.render({ data, cookieValue });
     },
@@ -36,7 +38,7 @@ export const handler: Handlers = {
 
         if (formType === "addPrato") {
             try {
-                const response = await fetch(
+                await fetch(
                     "http://localhost:8080/api/item/create",
                     {
                         method: "POST",
@@ -56,11 +58,9 @@ export const handler: Handlers = {
                 redirectUrl.searchParams.set("responseText", error.message);
                 return Response.redirect(redirectUrl.toString(), 303);
             }
-        }
-
-        else if (formType === "editPrato") {
+        } else if (formType === "editPrato") {
             try {
-                const response = await fetch(
+                await fetch(
                     `http://localhost:8080/api/item/${parseInt(formValues.index)}/put`,
                     {
                         method: "PUT",
@@ -69,11 +69,10 @@ export const handler: Handlers = {
                         },
                         body: JSON.stringify({
                             nome: formValues.nome,
-                            descricao: formValues.descricao
+                            descricao: formValues.descricao,
                         }),
                     },
                 );
-
                 const redirectUrl = new URL(`/logado/funcionario/1`, req.url);
                 return Response.redirect(redirectUrl.toString(), 303);
             } catch (error) {
@@ -83,11 +82,9 @@ export const handler: Handlers = {
                 redirectUrl.searchParams.set("responseText", error.message);
                 return Response.redirect(redirectUrl.toString(), 303);
             }
-        }
-
-        else if (formType === "deletePrato") {
+        } else if (formType === "deletePrato") {
             try {
-                const response = await fetch(
+                await fetch(
                     `http://localhost:8080/api/item/${parseInt(formValues.index)}/delete`,
                     {
                         method: "DELETE",
@@ -97,8 +94,6 @@ export const handler: Handlers = {
                     },
                 );
 
-                console.log(response)
-
                 const redirectUrl = new URL(`/logado/funcionario/1`, req.url);
                 return Response.redirect(redirectUrl.toString(), 303);
             } catch (error) {
@@ -109,11 +104,15 @@ export const handler: Handlers = {
                 return Response.redirect(redirectUrl.toString(), 303);
             }
         }
-    },
+
+        return new Response("Invalid formType", { status: 400 });
+    }
+
 };
 
 
 export default function FuncionarioLogado({ data }: CustomPageProps) {
+
     return (
         <div class="bg-[#FAF6F1] min-h-screen">
             <Navbar logado={data.cookieValue} />
@@ -152,7 +151,7 @@ export default function FuncionarioLogado({ data }: CustomPageProps) {
                                 <div class="flex justify-between mt-4">
                                     <button
                                         onClick={() => {
-                                            selectedPrato.value = { index: index, nome: prato.nome, descricao: prato.descricao };
+                                            selectedPrato.value = { index: prato.id, nome: prato.nome, descricao: prato.descricao };
                                             openEditPrato.value = true;
                                         }}
                                         class="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-700 transition"
@@ -160,7 +159,7 @@ export default function FuncionarioLogado({ data }: CustomPageProps) {
                                         Editar
                                     </button>
                                     <form method="POST">
-                                        <input type="hidden" name="index" value={index} />
+                                        <input type="hidden" name="index" value={prato.id} />
                                         <input type="hidden" name="formType" value="deletePrato" />
                                         <button
                                             type="submit"

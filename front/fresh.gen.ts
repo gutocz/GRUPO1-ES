@@ -11,16 +11,19 @@ import * as $logado_aluno_aluno_ from "./routes/logado/aluno/[aluno].tsx";
 import * as $logado_aluno_perfil from "./routes/logado/aluno/perfil.tsx";
 import * as $logado_aluno_recarga from "./routes/logado/aluno/recarga.tsx";
 import * as $logado_funcionario_funcionario_ from "./routes/logado/funcionario/[funcionario].tsx";
+import * as $logado_funcionario_criarCardapio from "./routes/logado/funcionario/criarCardapio.tsx";
 import * as $logado_funcionario_editar from "./routes/logado/funcionario/editar.tsx";
 import * as $logado_funcionario_perfil from "./routes/logado/funcionario/perfil.tsx";
 import * as $loginAluno from "./routes/loginAluno.tsx";
 import * as $loginFuncionario from "./routes/loginFuncionario.tsx";
 import * as $novaSenha from "./routes/novaSenha.tsx";
 import * as $AlunoLogado from "./islands/AlunoLogado.tsx";
+import * as $CriarCardapio from "./islands/CriarCardapio.tsx";
 import * as $FuncionarioLogado from "./islands/FuncionarioLogado.tsx";
 import * as $LoginAluno from "./islands/LoginAluno.tsx";
 import * as $Modal from "./islands/Modal.tsx";
 import * as $ModalAddPrato from "./islands/ModalAddPrato.tsx";
+import * as $ModalCardapio from "./islands/ModalCardapio.tsx";
 import * as $ModalEditPrato from "./islands/ModalEditPrato.tsx";
 import * as $Navbar from "./islands/Navbar.tsx";
 import * as $cadastro_1 from "./islands/cadastro.tsx";
@@ -38,6 +41,8 @@ const manifest = {
     "./routes/logado/aluno/recarga.tsx": $logado_aluno_recarga,
     "./routes/logado/funcionario/[funcionario].tsx":
       $logado_funcionario_funcionario_,
+    "./routes/logado/funcionario/criarCardapio.tsx":
+      $logado_funcionario_criarCardapio,
     "./routes/logado/funcionario/editar.tsx": $logado_funcionario_editar,
     "./routes/logado/funcionario/perfil.tsx": $logado_funcionario_perfil,
     "./routes/loginAluno.tsx": $loginAluno,
@@ -46,10 +51,12 @@ const manifest = {
   },
   islands: {
     "./islands/AlunoLogado.tsx": $AlunoLogado,
+    "./islands/CriarCardapio.tsx": $CriarCardapio,
     "./islands/FuncionarioLogado.tsx": $FuncionarioLogado,
     "./islands/LoginAluno.tsx": $LoginAluno,
     "./islands/Modal.tsx": $Modal,
     "./islands/ModalAddPrato.tsx": $ModalAddPrato,
+    "./islands/ModalCardapio.tsx": $ModalCardapio,
     "./islands/ModalEditPrato.tsx": $ModalEditPrato,
     "./islands/Navbar.tsx": $Navbar,
     "./islands/cadastro.tsx": $cadastro_1,

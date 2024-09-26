@@ -1,7 +1,7 @@
 import { Button } from "../ui/Button.tsx";
 
 
-export default function Navbar({ logado }: { logado?: string }) {
+export default function Navbar({ logado, saldo }: { logado?: string, saldo?: string}) {
     let isAlunoLogado = false
     if (logado?.length) {
         isAlunoLogado = !isAlunoLogado
@@ -71,7 +71,7 @@ export default function Navbar({ logado }: { logado?: string }) {
                     {isAlunoLogado && (
                         <div>
                             <span class="text-ru-orange-500 text-lg mr-5">
-                                Saldo: R$00,00
+                                Saldo: R$ {saldo}
                             </span>
                             <button class="bg-ru-orange-500 px-4 pb-2 rounded-[20px]">
                                 <svg

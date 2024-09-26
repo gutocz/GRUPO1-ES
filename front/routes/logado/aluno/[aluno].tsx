@@ -18,23 +18,27 @@ export const handler: Handlers = {
         }
 
         const response = await fetch("http://localhost:8080/api/cardapio/getAll");
+        const cardapioRes = await fetch("http://localhost:8080/api/cardapio/getAll")
+        const cardapios = await cardapioRes.json()
         const data = await response.text();
-        return ctx.render({ data, cookieValue });
+        return ctx.render({ data, cookieValue, cardapios });
     },
 };
 
 export default function AlunoLogado({ data }: CustomPageProps) {
     const [selectedDay, setSelectedDay] = useState("SEGUNDA");
-    const parsedData = JSON.parse(data.data);
+
 
     const getMealsForDay = (day: string, mealType: string) => {
-        return parsedData
-            .filter((meal: string) =>
-                meal.diaDaSemana === day && meal.tipoRefeicao === mealType
+        return data.cardapios
+            .filter((cardapio) =>
+                cardapio.diaDaSemana.trim() === day.trim() && cardapio.tipoRefeicao === mealType
             )
-            .map((meal: string) => meal.itens)
+            .map((cardapio) => cardapio.itens)
             .flat();
     };
+
+    console.log(data.cardapios)
 
     return (
         <div class="bg-[#FAF6F1] min-h-screen">
@@ -124,29 +128,34 @@ export default function AlunoLogado({ data }: CustomPageProps) {
                                 </h3>
 
                                 <div class="grid grid-cols-2 gap-4">
-                                    {getMealsForDay(selectedDay, mealType)
-                                        .length > 0
-                                        ? (
-                                            getMealsForDay(
-                                                selectedDay,
-                                                mealType,
-                                            ).map((item, i) => (
-                                                <div
-                                                    key={i}
-                                                    class="bg-[#FCBF49] rounded-md p-6"
-                                                >
-                                                    <p class="text-sm text-gray-600">
-                                                        {item.nome} -{" "}
-                                                        {item.descricao}
-                                                    </p>
-                                                </div>
-                                            ))
-                                        )
-                                        : (
-                                            <p class="text-gray-500 text-center col-span-2">
-                                                Nenhum item disponível
+                                    {getMealsForDay(selectedDay, mealType).map((mealItem) => (
+
+                                        <div
+                                            key={mealItem.id}
+                                            class="bg-ru-orange-500 rounded-full p-6"
+                                        >
+                                            <p class="text-sm text-black">
+                                                {mealItem.nome} -{" "}
+                                                {mealItem.descricao}
                                             </p>
-                                        )}
+                                        </div>
+                                    ))}{getMealsForDay(selectedDay, mealType)
+                                        .length > 0
+                                        ? (getMealsForDay(selectedDay, mealType).map((mealItem) => (
+
+                                            <div
+                                                key={mealItem.id}
+                                                class="bg-ru-orange-500 rounded-full p-6"
+                                            >
+                                                <p class="text-sm text-black">
+                                                    {mealItem.nome} -{" "}
+                                                    {mealItem.descricao}
+                                                </p>
+                                            </div>
+                                        ))) : <p class="text-gray-500 text-center col-span-2">
+                                            Nenhum item disponível
+                                        </p>}
+
                                 </div>
                             </div>
                         ))}
