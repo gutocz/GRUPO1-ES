@@ -8,6 +8,7 @@ import ufcg.ES.RU.Model.DTO.marmita.MarmitaPostDTO;
 import ufcg.ES.RU.Model.Item;
 import ufcg.ES.RU.Model.Marmita;
 import ufcg.ES.RU.Repository.MarmitaRepository;
+import ufcg.ES.RU.exceptions.MarmitaNotExistsException;
 import ufcg.ES.RU.service.item.ItemBuscarService;
 import ufcg.ES.RU.service.item.ItemMudarService;
 
@@ -55,5 +56,16 @@ public class MarmitaV1CriarService implements MarmitaCriarService {
 
 
         return marmitaRepository.save(marmitaNow);
+    }
+
+    @Override
+    public void deleteMarmita(Long id){
+        if (marmitaRepository.existsById(id)){
+            Marmita marmita = marmitaRepository.getById(id);
+            marmita.setItens(new HashSet<>());
+            marmitaRepository.delete(marmita);
+        } else {
+            throw new MarmitaNotExistsException(id);
+        }
     }
 }

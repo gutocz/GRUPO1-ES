@@ -41,4 +41,10 @@ public class MarmitaController {
     public ResponseEntity buscarPorId(@Valid @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(marmitaBuscarService.buscarMarmitaPorId(id));
     }
+
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity criarMarmita(@Valid @PathVariable("id") Long id) {
+        marmitaCriarService.deleteMarmita(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Deletado");
+    }
 }

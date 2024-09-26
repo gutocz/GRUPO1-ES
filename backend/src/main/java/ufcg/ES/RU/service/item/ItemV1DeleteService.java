@@ -25,16 +25,16 @@ public class ItemV1DeleteService implements ItemDeleteService {
         if(itemRepository.existsById(id)){
             Item item = itemRepository.getById(id);
 
-            // Remover o item de todas as marmitas
-            marmitaRepository.findAll().forEach(marmita -> {
-                marmita.getItens().remove(item);
-                marmitaRepository.save(marmita); // Persistir a mudança
-            });
-
             // Remover o item de todos os cardápios
             cardapioRepository.findAll().forEach(cardapio -> {
                 cardapio.getItens().remove(item);
                 cardapioRepository.save(cardapio); // Persistir a mudança
+            });
+
+            // Remover o item de todas as marmitas
+            marmitaRepository.findAll().forEach(marmita -> {
+                marmita.getItens().remove(item);
+                marmitaRepository.save(marmita); // Persistir a mudança
             });
 
             itemRepository.deleteById(id);

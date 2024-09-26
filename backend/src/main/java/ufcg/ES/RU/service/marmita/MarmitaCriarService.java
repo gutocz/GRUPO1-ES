@@ -6,4 +6,6 @@ import ufcg.ES.RU.Model.Marmita;
 public interface MarmitaCriarService {
 
     public Marmita criarMarmita(MarmitaPostDTO marmitaPostDTO);
+
+    public void deleteMarmita(Long id);
 }
