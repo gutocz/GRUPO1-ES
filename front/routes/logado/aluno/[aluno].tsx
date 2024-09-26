@@ -18,7 +18,6 @@ export const handler: Handlers = {
         }
 
         const alunoRes = await fetch(`http://localhost:8080/api/usuarios/Aluno/${cookieValue}`);
-
         const response = await fetch("http://localhost:8080/api/cardapio/getAll");
         const cardapioRes = await fetch("http://localhost:8080/api/cardapio/getAll")
         const cardapios = await cardapioRes.json()
@@ -26,11 +25,40 @@ export const handler: Handlers = {
         const aluno = await alunoRes.json()
         return ctx.render({ data, cookieValue, cardapios, aluno });
     },
+    async POST(req, ctx) {
+        const formData = await req.formData();
+        const formValues: Record<string, string> = {};
+
+        formData.forEach((value, key) => {
+            formValues[key] = value.toString();
+        });
+
+        try {
+           const a = await fetch(`http://localhost:8080/api/usuarios/recarga/${formValues.matricula}?valor=${formValues.valor}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    matricula: formValues.matricula,
+                    valor: parseFloat(formValues.valor)
+                }),
+            });
+        } catch (error) {
+            console.error("Erro ao realizar o fetch:", error);
+        }
+
+        const redirectUrl = new URL(`/logado/aluno/${formValues.matricula}`, req.url);
+        redirectUrl.searchParams.set("status", "500");
+
+        return Response.redirect(redirectUrl.toString(), 303);
+    }
+
+
 };
 
 export default function AlunoLogado({ data }: CustomPageProps) {
     const [selectedDay, setSelectedDay] = useState("SEGUNDA");
-
 
     const getMealsForDay = (day: string, mealType: string) => {
         return data.cardapios
@@ -84,7 +112,7 @@ export default function AlunoLogado({ data }: CustomPageProps) {
                         </span>
                     </div>
                     <div class="space-x-4">
-                        <Modal />
+                        <Modal aluno={data.cookieValue} saldo={data.aluno.saldo} />
                         <button
                             onClick={() =>
                                 openModalPagar.value = !openModalPagar.value}

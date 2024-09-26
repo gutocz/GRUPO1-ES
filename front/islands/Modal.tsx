@@ -3,7 +3,10 @@ import { Button } from "../components/ui/Button.tsx";
 
 export const openModalPagar = signal(false);
 
-export default function Modal() {
+const VALOR = -5
+
+export default function Modal({ aluno, saldo }: { aluno: string, saldo: string }) {
+
     return (
         <dialog open={openModalPagar.value} id="my_modal_1" class="modal bg-[#C9AA97]">
             <div class="modal-box bg-white rounded-lg text-black text-center px-16 py-16">
@@ -21,18 +24,24 @@ export default function Modal() {
                         }}
                         secondary
                         aria-label="Login"
-                        href="/loginAluno"
+                        href={`/logoado/aluno/${aluno}`}
                     >
                         Não
                     </Button>
-                    <Button
-                        primary
-                        aria-label="Cadastro"
-                        href="/cadastro"
-                        style={{ color: "white" }}
-                    >
-                       Pagar
-                    </Button>
+                    <form method="POST">
+                        <input type="hidden" name="valor" value={VALOR} />
+                        <input type="hidden" name="matricula" value={aluno} />
+
+                        <button
+                            type="submit"
+                            aria-label="pagar"
+                            href={`/logoado/aluno/${aluno}`}
+                            class="bg-ru-orange-500 rounded-full cursor-pointer leading-[18px] font-bold text-lg px-6 py-[18px] items-center hover:bg-[#f17011]"
+                            style={{ color: "white" }}
+                        >
+                            Pagar
+                        </button>
+                    </form>
                 </form>
             </div>
         </dialog>

@@ -16,6 +16,35 @@ export const handler: Handlers = {
         const data = await response.json();
         return ctx.render({ data, cookieValue });
     },
+
+    async POST(req, ctx) {
+        const formData = await req.formData();
+        const formValues: Record<string, string> = {};
+
+        formData.forEach((value, key) => {
+            formValues[key] = value.toString();
+        });
+
+        try {
+            await fetch(`http://localhost:8080/api/usuarios/recarga/${formValues.matricula}?valor=${formValues.valor}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    matricula: formValues.matricula,
+                    valor: parseFloat(formValues.valor)
+                }),
+            });
+        } catch (error) {
+            console.error("Erro ao realizar o fetch:", error);
+        }
+
+        const redirectUrl = new URL(`/logado/aluno/${formValues.matricula}`, req.url);
+        redirectUrl.searchParams.set("status", "500");
+
+        return Response.redirect(redirectUrl.toString(), 303);
+    }
 };
 
 interface CustomPageProps extends PageProps {
@@ -26,7 +55,7 @@ const INPUT = {
     label: "Valor:",
     placeholder: "R$ 10,00",
     type: "text",
-    name: "valor-recarga",
+    name: "valor",
     required: true,
     id: "recarga-input",
 }
@@ -42,7 +71,8 @@ export default function Recarga({ data }: CustomPageProps) {
                         <h2 class="font-semibold text-xl mb-4 text-black">
                             Selecione uma forma de pagamento:
                         </h2>
-                        <form>
+                        <form method="POST">
+                            <input type="hidden" name="matricula" value={data.cookieValue} />
                             <Input {...INPUT} />
                             <div class="mb-4 max-w-[274px]">
                                 <select class="border border-orange-400 w-full px-4 py-2 rounded-t-md focus:outline-none text-black focus:ring-2 focus:ring-orange-400  bg-ru-orange-500">
@@ -53,7 +83,6 @@ export default function Recarga({ data }: CustomPageProps) {
                                     <option class="bg-[#FAF6F1]" value="paypal">PayPal</option>
                                 </select>
                             </div>
-
                             <div class="flex justify-end">
                                 <button type="submit" class="bg-[#ff7f16] text-white px-6 py-3 rounded-md shadow-md hover:bg-[#e6700f] transition">
                                     Continuar
